@@ -74,13 +74,19 @@ While I didn't include it here (see link above for full conversation), I kept as
 
 Overall I am disappointed in this answer but not surprised as I am seeing chatGPT text in my work regularly and can often spot it right away by the language used and the simplification mistakes to the broader topic.
 
-\item ER Diagram
+\item ER Diagram:  Highlights of my approach are aggregation of booking entity, specialization of person to host and/or guest and referral aggregation with a weak relationship tied to booking for earning of referral bonus.
 
 \includegraphics[width = \textwidth]{question1.png}
 
-\item Yes this relationship could be created.  Add a relationship between guest and lodging outside of the aggregation represented by booking.  The review will need its own entity entitled Reviews. 
+\item Yes this relationship could be created.  Add a relationship between guest and lodging outside of the aggregation represented by booking.  It might be best practice to not let guests review lodgings they have not booked.  If that was the case, you'd link the aggregation to reviews.  The review will need its own entity entitled Reviews. I have done so below and added the attributes for review.  I do not consider this as a weak entity due to the fact that reviews should be shared without guest info and removed from lodgings if found erroneous.
 
-\item Yes this can be added but no new relationship would be required.  Simply add banking info to Host entity set, this would could be a multivalued attribute with composite values too.  You could also make a new weak entity and weak relationship that was bank and banks\_with and include all the information there.
+\includegraphics[width = \textwidth]{question3.png}
+
+\item You could also make a new weak entity and weak relationship that was bank and banks\_with and include all the information there.  Membership will be required (both ways since Hosts will need a banking account and banking accounts will need hosts).  I have added the required in not the best fashion below.
+
+\includegraphics[width = \textwidth]{question4.png}
+
+After considering this question for a bit, you could also add the banking information as an attribute.  It would possibly be multi-valued but it could be add just to the host entity rather than mucking up the tree.
 
 
 
