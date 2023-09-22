@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.5.31)  17 SEP 2023 10:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.5.31)  22 SEP 2023 18:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -597,21 +597,32 @@ e
 \openout5 = `FinalProject.toc'.
 
 
-[2] [1] [2] [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 45.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 45.
+[2]
+<Project.png, id=32, 784.9325pt x 564.1075pt>
+File: Project.png Graphic file (type png)
+<use Project.png>
+Package pdftex.def Info: Project.png  used on input line 38.
+(pdftex.def)             Requested size: 360.0pt x 258.72652pt.
+
+Overfull \hbox (17.0pt too wide) in paragraph at lines 38--39
+[][] 
+ []
+
+[1 <./Project.png>] [2] [3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 47.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 47.
  (./FinalProject.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 45.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 45.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 47.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 47.
 Package rerunfilecheck Info: File `FinalProject.out' has not changed.
 (rerunfilecheck)             Checksum: C23FF1C7F3A19CB8FEE4C5C6E70852A3;107.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 45.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 47.
  ) 
 Here is how much of TeX's memory you used:
- 15674 strings out of 492982
- 293831 string characters out of 6134896
+ 15680 strings out of 492982
+ 293909 string characters out of 6134896
  351714 words of memory out of 5000000
- 18992 multiletter control sequences out of 15000+600000
+ 18996 multiletter control sequences out of 15000+600000
  4853 words of font info for 18 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,5n,54p,415b,327s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -619,10 +630,10 @@ Here is how much of TeX's memory you used:
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on FinalProject.pdf (5 pages, 55929 bytes).
+Output written on FinalProject.pdf (5 pages, 85924 bytes).
 PDF statistics:
- 63 PDF objects out of 1000 (max. 8388607)
- 51 compressed objects within 1 object stream
+ 66 PDF objects out of 1000 (max. 8388607)
+ 52 compressed objects within 1 object stream
  9 named destinations out of 1000 (max. 500000)
- 29 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 34 words of extra memory for PDF output out of 10000 (max. 10000000)
 
