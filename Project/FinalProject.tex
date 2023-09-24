@@ -56,6 +56,35 @@ Department(\underline{dept\_num},dept\_data)
 
 Supervises(\underline{dept\_num},\underline{process\_id})
 
+Fit(\underline{process\_id}, fit\_type)
 
+Paint(\underline{process\_id}, paint\_type, painting\_method)
+
+Cut(\underline{process\_id},cutting\_type, machine\_type)
+
+Account(\underline{type}, \underline{acct\_id})
+
+Job(\underline{process\_id}, \underline{ass\_id}, \underline{job\_num})
+
+Account(\underline{type}, \underline{acct\_id})
+
+Costs(\underline{job\_num},\underline{type}, \underline{acct\_id},\underline{process\_id}, \underline{ass\_id})
+
+Fit\_Job(\underline{process\_id}, \underline{ass\_id}, \underline{job\_num}, labor)
+
+Paint\_Job(\underline{process\_id}, \underline{ass\_id}, \underline{job\_num},color,volume, labor)
+
+Cut\_Job(\underline{process\_id}, \underline{ass\_id}, \underline{job\_num}, machine\_type, time, material, labor)
+
+\newpage
+\section{Storage}
+
+\begin{tabular}{|c|p{.75in}|c|p{.75in}|p{.75in}|p{.75in}|}\hline
+Table Name & Query Number and Type & Search Key& Query Frequency& Selected File Organization & Justification\\ \hline\hline
+Customer & 1 Insertion & name & 30/Day & Heap on name & At the moment adding lots of data is easiest with a heap.  I reserve the right to change this if we need to look for customers often...\\ \hline 
+
+
+
+\end{tabular}
 
 \end{document}

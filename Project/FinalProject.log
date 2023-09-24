@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.5.31)  24 SEP 2023 15:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.5.31)  24 SEP 2023 15:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -598,11 +598,11 @@ e
 
 
 [2]
-<Project.png, id=32, 784.9325pt x 564.1075pt>
+<Project.png, id=37, 784.9325pt x 734.745pt>
 File: Project.png Graphic file (type png)
 <use Project.png>
 Package pdftex.def Info: Project.png  used on input line 38.
-(pdftex.def)             Requested size: 360.0pt x 258.72652pt.
+(pdftex.def)             Requested size: 360.0pt x 336.98898pt.
 
 Overfull \hbox (17.0pt too wide) in paragraph at lines 38--39
 [][] 
@@ -623,39 +623,106 @@ LaTeX Font Info:    Try loading font information for U+wasy on input line 45.
 (/usr/share/texlive/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
 ) [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 61.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 61.
-
-(./FinalProject.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 61.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 61.
+Underfull \hbox (badness 10000) in paragraph at lines 83--83
+[]\OT1/cmr/m/n/10.95 Query
+ []
 
 
-Package rerunfilecheck Warning: File `FinalProject.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
+Underfull \hbox (badness 10000) in paragraph at lines 83--83
+\OT1/cmr/m/n/10.95 Num-ber
+ []
 
-Package rerunfilecheck Info: Checksums for `FinalProject.out':
-(rerunfilecheck)             Before: C23FF1C7F3A19CB8FEE4C5C6E70852A3;107
-(rerunfilecheck)             After:  A03CDFD44368180DA455EA13B047F58F;106.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 61.
+
+Underfull \hbox (badness 10000) in paragraph at lines 83--83
+[]\OT1/cmr/m/n/10.95 Selected
+ []
+
+
+Underfull \hbox (badness 2111) in paragraph at lines 83--83
+\OT1/cmr/m/n/10.95 File Or-ga-
+ []
+
+
+Overfull \hbox (4.4105pt too wide) in paragraph at lines 83--83
+[]\OT1/cmr/m/n/10.95 Justification| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+[]\OT1/cmr/m/n/10.95 Heap on
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+[]\OT1/cmr/m/n/10.95 At the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+\OT1/cmr/m/n/10.95 mo-ment
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+\OT1/cmr/m/n/10.95 of data
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+\OT1/cmr/m/n/10.95 is eas-i-est
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+\OT1/cmr/m/n/10.95 with a
+ []
+
+
+Underfull \hbox (badness 4739) in paragraph at lines 84--84
+\OT1/cmr/m/n/10.95 heap. I
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+\OT1/cmr/m/n/10.95 right to
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+\OT1/cmr/m/n/10.95 cus-tomers
+ []
+
+
+Overfull \hbox (40.77385pt too wide) in paragraph at lines 82--89
+[] 
+ []
+
+[3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 90.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 90.
+ (./FinalProject.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 90.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 90.
+Package rerunfilecheck Info: File `FinalProject.out' has not changed.
+(rerunfilecheck)             Checksum: ECF9D5C6D585346E20166E2790C364C1;148.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 90.
  ) 
 Here is how much of TeX's memory you used:
- 15736 strings out of 492982
- 294895 string characters out of 6134896
- 351714 words of memory out of 5000000
- 19029 multiletter control sequences out of 15000+600000
+ 15739 strings out of 492982
+ 294921 string characters out of 6134896
+ 354714 words of memory out of 5000000
+ 19030 multiletter control sequences out of 15000+600000
  9842 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,5n,54p,415b,327s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,8n,54p,415b,327s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on FinalProject.pdf (4 pages, 88463 bytes).
+Output written on FinalProject.pdf (5 pages, 104438 bytes).
 PDF statistics:
- 62 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
- 8 named destinations out of 1000 (max. 500000)
- 34 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 PDF objects out of 1000 (max. 8388607)
+ 57 compressed objects within 1 object stream
+ 10 named destinations out of 1000 (max. 500000)
+ 42 words of extra memory for PDF output out of 10000 (max. 10000000)
 
