@@ -39,9 +39,36 @@ INSTRUCTOR:  DR. LE GRUENWALD\\
 \item Company information is kept including parent company information including any dates on which they were acquired.
 \end{enumerate}
 \item Relational Database
+\begin{itemize}
+\item Venue(\underline {name}, \underline{address}, organizer)
 
-Venue(\underline {name} \underline{address} organizer)
+\item Unstaffed\_Venue(\underline{name},\underline{address},total\_area)
 
+\item Staffed\_Venue(\underline{name},\underline{address},budget)
+
+\item Room(\underline{name}, \underline{address}, \underline{number},capacity)
+
+\item Reservation\_Agreement(\underline{id},payment)
+
+\item Company(\underline{cname},location)
+
+\item Reserves(\underline{id}, \underline{cname}, \underline{vname},  \underline{address}, date)
+
+\item Owned\_By(\underline{parent\_company\_name},\underline{child\_company\_name},date\_acquired)
+
+
+\item Contract(\underline{contract\_id},date\_signed,details)
+
+\item Staff\_Member(\underline{id}, name, phone\_number)
+
+\item Job(\underline{job\_id}, payment)
+
+\item Works\_on(\underline{id},\underline{job\_id}, start\_date,end\_date)
+
+\item Signs(\underline{contract\_id},\underline{staff\_id},\underline{job\_id})
+
+\item Employs(\underline{name},\underline{address},\underline{id})
+\end{itemize}
 \end{enumerate}
 
 

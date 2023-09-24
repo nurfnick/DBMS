@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.5.31)  24 SEP 2023 14:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.5.31)  23 SEP 2023 11:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**FinalProject.tex
-(./FinalProject.tex
+**Assignment2.tex
+(./Assignment2.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -522,8 +522,8 @@ LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
 )
 \c@example=\count128
 
-(./FinalProject.aux)
-\openout1 = `FinalProject.aux'.
+(./Assignment2.aux)
+\openout1 = `Assignment2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
@@ -554,12 +554,11 @@ LaTeX Info: Redefining \ref on input line 15.
 LaTeX Info: Redefining \pageref on input line 15.
 LaTeX Info: Redefining \nameref on input line 15.
 
-(./FinalProject.out) (./FinalProject.out)
+(./Assignment2.out) (./Assignment2.out)
 \@outlinefile=\write4
-\openout4 = `FinalProject.out'.
+\openout4 = `Assignment2.out'.
 
-
-ABD: EveryShipout initializing macros
+ ABD: EveryShipout initializing macros
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count130
@@ -592,48 +591,58 @@ e
 ))
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./FinalProject.toc)
-\tf@toc=\write5
-\openout5 = `FinalProject.toc'.
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 43.
 
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 43.
+LaTeX Font Info:    Try loading font information for U+msa on input line 43.
 
-[2]
-<Project.png, id=32, 784.9325pt x 564.1075pt>
-File: Project.png Graphic file (type png)
-<use Project.png>
-Package pdftex.def Info: Project.png  used on input line 38.
-(pdftex.def)             Requested size: 360.0pt x 258.72652pt.
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 43.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 38--39
-[][] 
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for U+wasy on input line 43.
+
+(/usr/share/texlive/texmf-dist/tex/latex/wasysym/uwasy.fd
+File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
+)
+Overfull \hbox (48.1861pt too wide) in paragraph at lines 57--58
+[]\OT1/cmr/m/n/10.95 Owned[]By($[]$,$[]$,date[]acquired) 
  []
 
-[1 <./Project.png>] [2] [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 47.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 47.
- (./FinalProject.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 47.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 47.
-Package rerunfilecheck Info: File `FinalProject.out' has not changed.
-(rerunfilecheck)             Checksum: C23FF1C7F3A19CB8FEE4C5C6E70852A3;107.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 47.
+[2]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 80.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 80.
+ (./Assignment2.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 80.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 80.
+Package rerunfilecheck Info: File `Assignment2.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 80.
  ) 
 Here is how much of TeX's memory you used:
- 15680 strings out of 492982
- 293909 string characters out of 6134896
- 351714 words of memory out of 5000000
- 18996 multiletter control sequences out of 15000+600000
- 4853 words of font info for 18 fonts, out of 8000000 for 9000
+ 15741 strings out of 492982
+ 295004 string characters out of 6134896
+ 357705 words of memory out of 5000000
+ 19033 multiletter control sequences out of 15000+600000
+ 9227 words of font info for 36 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,5n,54p,415b,327s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on FinalProject.pdf (5 pages, 86002 bytes).
+ 55i,5n,54p,414b,325s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on Assignment2.pdf (2 pages, 45141 bytes).
 PDF statistics:
- 66 PDF objects out of 1000 (max. 8388607)
- 52 compressed objects within 1 object stream
- 9 named destinations out of 1000 (max. 500000)
- 34 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 45 PDF objects out of 1000 (max. 8388607)
+ 37 compressed objects within 1 object stream
+ 13 named destinations out of 1000 (max. 500000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
