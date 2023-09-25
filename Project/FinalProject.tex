@@ -82,6 +82,8 @@ Cut\_Job(\underline{process\_id}, \underline{ass\_id}, \underline{job\_num}, mac
 \begin{tabular}{|c|p{.75in}|c|p{.75in}|p{.75in}|p{.75in}|}\hline
 Table Name & Query Number and Type & Search Key& Query Frequency& Selected File Organization & Justification\\ \hline\hline
 Customer & 1 Insertion & name & 30/Day & Heap on name & At the moment adding lots of data is easiest with a heap.  I reserve the right to change this if we need to look for customers often...\\ \hline 
+Department & 2 Insertion& dept\_num & infrequent & Sequential on dept\_num & Since this data is added infrequently but referenced by other tables often, sequential insertion seems appropriate.\\ \hline
+
 
 
 
