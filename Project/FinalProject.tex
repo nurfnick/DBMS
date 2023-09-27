@@ -79,14 +79,15 @@ Cut\_Job(\underline{process\_id}, \underline{ass\_id}, \underline{job\_num}, mac
 \newpage
 \section{Storage}
 
-\begin{tabular}{|c|p{.75in}|c|p{.75in}|p{.75in}|p{.75in}|}\hline
+\begin{tabular}{|p{.75in}|p{.75in}|p{.75in}|p{.65in}|p{.75in}|p{1.75in}|}\hline
 Table Name & Query Number and Type & Search Key& Query Frequency& Selected File Organization & Justification\\ \hline\hline
-Customer & 1 Insertion & name & 30/Day & Heap on name & At the moment adding lots of data is easiest with a heap.  I reserve the right to change this if we need to look for customers often...\\ \hline 
+Customer & 1 Insertion & name & 30/Day & heap tree on name & At the moment adding lots of data and not accessing it directly often\\ \hline 
 Department & 2 Insertion& dept\_num & infrequent & Sequential on dept\_num & Since this data is added infrequently but referenced by other tables often, sequential insertion seems appropriate.\\ \hline
+Process (and sub categories)& 3 Insertion & process\_id,  (sub category info) & infrequent & Sequential on process\_id (and sub category id)&  Infrequent insertion but often called\\ \hline
+Supervises & 3 Insertion & process\_id and dept\_num & infrequent & Sequential on process\_id &Infrequent insertion but called often on process\_id\\\hline
+Orders & 4 Insertion & name, ass\_id&   \\ \hline
 
-
-
-
+Customer & 12 Range Search & name (in order) by category &100/Day & Multitable Clustering with category and name stored in a $B^+$ tree& Since this data is accessed often this table should be pre-built.  New customers are added often so $B^+$ tree storage on name will be most efficient within this multitable\\\hline
 \end{tabular}
 
 \end{document}
