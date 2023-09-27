@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-09-27T21:05:08.876Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0" etag="W4mPpuhjcsgNrkF6Tp54" version="21.8.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-09-27T21:18:04.347Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0" etag="v8STMVFmP-pxVaVYMYSY" version="21.8.2" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
     <mxGraphModel dx="954" dy="602" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
@@ -144,18 +144,6 @@
         </mxCell>
         <mxCell id="Q9FifGHWBsW8M5NocKsP-47" value="Costs" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="650" y="260" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="Q9FifGHWBsW8M5NocKsP-48" value="&lt;u&gt;job_num&lt;/u&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
-          <mxGeometry x="660" y="170" width="100" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="Q9FifGHWBsW8M5NocKsP-49" value="" style="endArrow=none;html=1;rounded=0;dashed=1;dashPattern=1 2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="Q9FifGHWBsW8M5NocKsP-48" target="Q9FifGHWBsW8M5NocKsP-47" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="340" y="490" as="sourcePoint" />
-            <mxPoint x="710" y="230" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Q9FifGHWBsW8M5NocKsP-50" value="" style="resizable=0;html=1;whiteSpace=wrap;align=right;verticalAlign=bottom;" parent="Q9FifGHWBsW8M5NocKsP-49" connectable="0" vertex="1">
-          <mxGeometry x="1" relative="1" as="geometry" />
         </mxCell>
         <mxCell id="Q9FifGHWBsW8M5NocKsP-51" value="" style="shape=link;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Q9FifGHWBsW8M5NocKsP-47" target="Q9FifGHWBsW8M5NocKsP-57" edge="1">
           <mxGeometry relative="1" as="geometry">
