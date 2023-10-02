@@ -44,17 +44,17 @@ Here is my ER diagram
 
 Process(\underline{process\_id},process\_data)
 
-Assemblies(\underline{ass\_id},date, ass\_details)
+Assemblies(\underline{assembly\_id},date\_ordered, assembly\_details)
 
-Create(\underline{process\_id},\underline{ass\_id})
+Manufacture(\underline{process\_id},\underline{assembly\_id})
 
 Customer(\underline{name},address, category)
 
-Orders(\underline{name},\underline{ass\_id})
+Order(\underline{name},\underline{assembly\_id})
 
 Department(\underline{dept\_num},dept\_data)
 
-Supervises(\underline{dept\_num},\underline{process\_id})
+Supervise(\underline{dept\_num},\underline{process\_id})
 
 Fit(\underline{process\_id}, fit\_type)
 
@@ -62,18 +62,21 @@ Paint(\underline{process\_id}, paint\_type, painting\_method)
 
 Cut(\underline{process\_id},cutting\_type, machine\_type)
 
-Account(\underline{type}, \underline{acct\_id})
+Maintain(\underline{acct\_id}, \underline{dept\_num}, \underline{process\_id}, \underline{assembly\_id})
 
-Job(\underline{process\_id}, \underline{ass\_id}, \underline{job\_num}, job\_date\_commence, job\_date\_end)
+Account(\underline{acct\_id}, type, date\_established, costs)
 
+Job(\underline{job\_num}, job\_date\_commenced, job\_completed)
 
-Costs(\underline{job\_num},\underline{type}, \underline{acct\_id},\underline{process\_id}, \underline{ass\_id})
+Assign(\underline{job\_num}, \underline{assembly\_id},\underline{process\_id})
 
-Fit\_Job(\underline{process\_id}, \underline{ass\_id}, \underline{job\_num}, labor)
+Costs(\underline{job\_num}, \underline{acct\_id},\underline{process\_id}, \underline{assembly\_id}, \underline{tran\_num},\underline{dept\_num})
 
-Paint\_Job(\underline{process\_id}, \underline{ass\_id}, \underline{job\_num},color,volume, labor)
+Fit\_Job( \underline{job\_num}, labor)
 
-Cut\_Job(\underline{process\_id}, \underline{ass\_id}, \underline{job\_num}, machine\_type, time, material, labor)
+Paint\_Job( \underline{job\_num},color,volume, labor)
+
+Cut\_Job( \underline{job\_num}, machine\_type, time, material, labor)
 
 \newpage
 \section{Storage}
@@ -84,7 +87,7 @@ Customer & 1 Insertion & name & 30/Day & heap tree on name & At the moment addin
 Department & 2 Insertion& dept\_num & infrequent & Sequential on dept\_num & Since this data is added infrequently but referenced by other tables often, sequential insertion seems appropriate.\\ \hline
 Process (and sub categories)& 3 Insertion & process\_id,  (sub category info) & infrequent & Sequential on process\_id (and sub category id)&  Infrequent insertion but often called\\ \hline
 Supervises & 3 Insertion & process\_id and dept\_num & infrequent & Sequential on process\_id &Infrequent insertion but called often on process\_id\\\hline
-Orders & 4 Insertion & name, ass\_id& 40/Day&dynamic hash on name and ass\_id& This is a lot of orders to create each day.  These will need to be joined with other tables frequently as is happening in our insertion so it is important to be easily accessible  \\ \hline
+Orders & 4 Insertion & name, assembly\_id& 40/Day&dynamic hash on name and ass\_id& This is a lot of orders to create each day.  These will need to be joined with other tables frequently as is happening in our insertion so it is important to be easily accessible  \\ \hline
 Create  & 4 Insertion & process\_id and ass\_id &40/Day &dynamic hash on process\_id and ass\_id & Frequent insertion with joins on other tables            \\ \hline
 Account & 5 Insertion & type and acct\_id & 10/Day & Multitable clustering with type for clustering and acct\_id sequential& This structure will make for fast access later and there is a fair amount of additions here.\\ \hline
 \end{tabular}
