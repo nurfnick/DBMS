@@ -101,4 +101,5 @@ Job & 7 Random Search (Insertion of job\_date\_end) & job\_num & 50/Day & $B$ tr
 Customer & 12 Range Search & name (in order) by category &100/Day & Multitable Clustering with category for clustering and name stored in a $B^+$ tree& Since this data is accessed often this table should be pre-built.  New customers are added often so $B^+$ tree storage on name will be most efficient within this multitable\\\hline
 \end{tabular}
 
+Info on Azure indexing can be found \href{https://learn.microsoft.com/en-us/sql/relational-databases/indexes/indexes?view=sql-server-ver16}{here}.
 \end{document}
