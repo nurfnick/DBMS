@@ -43,6 +43,7 @@ VALUES
 	(6,'Hanks',15,24),
 	(7,'Lewis',13,32)
 Insert INTO Director
+    (did, dname, earnings)
 VALUES
 	(1,'Parker',580000),
 	(2,'Black',2500000),
@@ -50,6 +51,7 @@ VALUES
 	(4,'Stone',820000)
 
 Insert INTO Movie
+    (mname, genre, minutes,release_year,did)
 VALUES
 	('Jurassic Park','Action',125,1984,2),
 	('Shawshank Redemption','Drama',105,2001,2),
@@ -63,6 +65,7 @@ VALUES
 	('Up',	'Animation',111,1999,4)
 
 Insert INTO Acted
+    (pid,mname)
 Values
 	(4,'Fight Club'),
 	(5,'Fight Club'),
