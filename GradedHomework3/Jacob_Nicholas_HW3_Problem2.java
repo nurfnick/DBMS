@@ -72,6 +72,8 @@ public class sample {
                             final int rows_inserted = statement.executeUpdate();
                             System.out.println(String.format("Done. %d rows inserted.", rows_inserted));
                         }
+                        catch (SQLException sqle) {
+                        	System.out.println("Could not insert tuple. " + sqle);                        }
                     }
 
                     break;
@@ -109,6 +111,8 @@ public class sample {
                             final int rows_inserted = statement.executeUpdate();
                             System.out.println(String.format("Done. %d rows inserted.", rows_inserted));
                         }
+                        catch (SQLException sqle) {
+                        	System.out.println("Could not insert tuple. " + sqle);                        }
                     }
 
                     break;                    
