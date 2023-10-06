@@ -1,0 +1,95 @@
+\documentclass[11pt]{article}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{ wasysym }
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{arrows.meta}
+
+\newtheorem{example}{Example}
+
+
+\author{}
+\title{}
+
+\begin{document}
+%\maketitle
+{\Large
+%Change Document name to: Graded Homework 1\_Jacob\_Nicholas
+\noindent NAME:  Nicholas Jacob\\ 
+STUDENT ID: \# 113578513\\
+GRADED HOMEWORK NUMBER: 3\\
+COURSE: CS/DSA 4513 DATABASE MANAGEMENT\\ 
+SECTION: ONLINE\\SEMESTER: FALL 2023\\
+INSTRUCTOR:  DR. LE GRUENWALD\\
+ SCORE:}
+
+\newpage
+\begin{enumerate} 
+\item First I will consider that the records have freshly been inserted and no reordering on the physical system has been re-done.  This will require pointers going every which way...  The first pointer goes to Black...
+
+\begin{tabular}{|c|c|c|c|}\hline
+Johnson&11&Yukon&\$20\tikzmark{jo}\\ \hline
+Black&33&OKC&\$20\tikzmark{bl}\\ \hline
+Grant &22&Norman &\$15\tikzmark{gr}\\ \hline\hline
+White&77&OKC&\$20\tikzmark{wh}\\ \hline
+Chapman&44&Edmond&\$20\tikzmark{ch}\\ \hline
+Ford&66&Enid&\$25\tikzmark{fo}\\ \hline\hline
+Haas&99&OKC&\$20\tikzmark{ha}\\\hline
+Hougen&88&Yukon&\$25\tikzmark{ho}\\\hline
+Clinton&55&Tulsa&\$25\tikzmark{cl}\\\hline\hline
+&&&\tikzmark{end}
+\end{tabular} 
+  \begin{tikzpicture}[overlay, remember picture, shorten >=.5pt, shorten <=.5pt, transform canvas={yshift=.25\baselineskip}]
+    \draw [->] ({pic cs:bl}) [bend left] to ({pic cs:ch});
+        \draw [->] ({pic cs:ch}) [bend left] to ({pic cs:cl});    
+        \draw [->] ({pic cs:cl}) [bend left] to ({pic cs:fo});
+            \draw [->] ({pic cs:fo}) [bend left] to ({pic cs:gr});
+                \draw [->] ({pic cs:gr}) [bend left] to ({pic cs:ha});
+                    \draw [->] ({pic cs:ha}) [bend left] to ({pic cs:ho});
+                        \draw [->] ({pic cs:ho}) [bend left] to ({pic cs:jo});
+                            \draw [->] ({pic cs:jo}) [bend left] to ({pic cs:wh});
+                            \draw [-||] ({pic cs:wh}) [bend left] to ({pic cs:end});
+                            
+  \end{tikzpicture}
+I could not find the exact arrow used in notes for the last pointer.  I am terminating by having a null pointer.
+
+So clearly this is the result of all those inserts in a row.  We know that the system will rearrange sequential files periodically so let's do that and have the last file be an insert.
+
+\begin{tabular}{|c|c|c|c|}\hline
+
+Black&33&OKC&\$20\tikzmark{bl1}\\ \hline
+Chapman&44&Edmond&\$20\tikzmark{ch1}\\ \hline
+Ford&66&Enid&\$25\tikzmark{fo1}\\ \hline\hline
+Grant &22&Norman &\$15\tikzmark{gr1}\\ \hline
+Haas&99&OKC&\$20\tikzmark{ha1}\\\hline
+Hougen&88&Yukon&\$25\tikzmark{ho1}\\\hline\hline
+Johnson&11&Yukon&\$20\tikzmark{jo1}\\ \hline
+White&77&OKC&\$20\tikzmark{wh1}\\ \hline
+Clinton&55&Tulsa&\$25\tikzmark{cl1}\\\hline\hline
+&&&\tikzmark{end1}
+\end{tabular} 
+  \begin{tikzpicture}[overlay, remember picture, shorten >=.5pt, shorten <=.5pt, transform canvas={yshift=.25\baselineskip}]
+    \draw [->] ({pic cs:bl1}) [bend left] to ({pic cs:ch1});
+        \draw [->] ({pic cs:ch1}) [bend left] to ({pic cs:cl1});    
+        \draw [->] ({pic cs:cl1}) [bend left] to ({pic cs:fo1});
+            \draw [->] ({pic cs:fo1}) [bend left] to ({pic cs:gr1});
+                \draw [->] ({pic cs:gr1}) [bend left] to ({pic cs:ha1});
+                    \draw [->] ({pic cs:ha1}) [bend left] to ({pic cs:ho1});
+                        \draw [->] ({pic cs:ho1}) [bend left] to ({pic cs:jo1});
+                            \draw [->] ({pic cs:jo1}) [bend left] to ({pic cs:wh1});
+                            \draw [-||] ({pic cs:wh1}) [bend left] to ({pic cs:end1});
+                            
+  \end{tikzpicture}
+  
+That is somewhat less of a mess...
+\end{enumerate}
+
+
+
+
+
+
+\end{document}
