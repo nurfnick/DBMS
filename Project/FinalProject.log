@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.5.31)  24 SEP 2023 15:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.5.31)  7 OCT 2023 10:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -598,11 +598,11 @@ e
 
 
 [2]
-<Project.png, id=37, 784.9325pt x 734.745pt>
+<Project.png, id=37, 830.10126pt x 795.97375pt>
 File: Project.png Graphic file (type png)
 <use Project.png>
 Package pdftex.def Info: Project.png  used on input line 38.
-(pdftex.def)             Requested size: 360.0pt x 336.98898pt.
+(pdftex.def)             Requested size: 360.0pt x 345.20126pt.
 
 Overfull \hbox (17.0pt too wide) in paragraph at lines 38--39
 [][] 
@@ -623,106 +623,377 @@ LaTeX Font Info:    Try loading font information for U+wasy on input line 45.
 (/usr/share/texlive/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
 ) [2]
-Underfull \hbox (badness 10000) in paragraph at lines 83--83
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
+[]\OT1/cmr/m/n/10.95 Table
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
 []\OT1/cmr/m/n/10.95 Query
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 83--83
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
 \OT1/cmr/m/n/10.95 Num-ber
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 83--83
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
+[]\OT1/cmr/m/n/10.95 Query
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
+\OT1/cmr/m/n/10.95 Fre-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
 []\OT1/cmr/m/n/10.95 Selected
  []
 
 
-Underfull \hbox (badness 2111) in paragraph at lines 83--83
+Underfull \hbox (badness 2111) in paragraph at lines 87--87
 \OT1/cmr/m/n/10.95 File Or-ga-
  []
 
 
-Overfull \hbox (4.4105pt too wide) in paragraph at lines 83--83
-[]\OT1/cmr/m/n/10.95 Justification| 
+Underfull \hbox (badness 10000) in paragraph at lines 88--88
+[]\OT1/cmr/m/n/10.95 heap tree
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--84
-[]\OT1/cmr/m/n/10.95 Heap on
+Overfull \hbox (3.1634pt too wide) in paragraph at lines 89--89
+[]\OT1/cmr/m/n/10.95 Department| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--84
-[]\OT1/cmr/m/n/10.95 At the
+Overfull \hbox (1.41791pt too wide) in paragraph at lines 89--89
+[]\OT1/cmr/m/n/10.95 infrequent| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--84
-\OT1/cmr/m/n/10.95 mo-ment
+Underfull \hbox (badness 10000) in paragraph at lines 89--89
+[]\OT1/cmr/m/n/10.95 Sequential
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--84
-\OT1/cmr/m/n/10.95 of data
+Underfull \hbox (badness 10000) in paragraph at lines 89--89
+\OT1/cmr/m/n/10.95 on
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--84
-\OT1/cmr/m/n/10.95 is eas-i-est
+Underfull \hbox (badness 3449) in paragraph at lines 89--89
+\OT1/cmr/m/n/10.95 quen-tial in-ser-tion seems
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--84
-\OT1/cmr/m/n/10.95 with a
+Underfull \hbox (badness 10000) in paragraph at lines 90--90
+[]\OT1/cmr/m/n/10.95 Process
  []
 
 
-Underfull \hbox (badness 4739) in paragraph at lines 84--84
-\OT1/cmr/m/n/10.95 heap. I
+Underfull \hbox (badness 10000) in paragraph at lines 90--90
+\OT1/cmr/m/n/10.95 (and sub
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--84
-\OT1/cmr/m/n/10.95 right to
+Underfull \hbox (badness 10000) in paragraph at lines 90--90
+[]\OT1/cmr/m/n/10.95 process[]id,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--84
-\OT1/cmr/m/n/10.95 cus-tomers
+Underfull \hbox (badness 4913) in paragraph at lines 90--90
+\OT1/cmr/m/n/10.95 (sub cat-e-
  []
 
 
-Overfull \hbox (40.77385pt too wide) in paragraph at lines 82--89
+Overfull \hbox (1.41791pt too wide) in paragraph at lines 90--90
+[]\OT1/cmr/m/n/10.95 infrequent| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--90
+[]\OT1/cmr/m/n/10.95 Sequential
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--90
+\OT1/cmr/m/n/10.95 on pro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--90
+\OT1/cmr/m/n/10.95 cess[]id
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--90
+\OT1/cmr/m/n/10.95 (and sub
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--90
+\OT1/cmr/m/n/10.95 cat-e-gory
+ []
+
+
+Underfull \hbox (badness 3536) in paragraph at lines 90--90
+[]\OT1/cmr/m/n/10.95 Infrequent in-ser-tion but
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--91
+[]\OT1/cmr/m/n/10.95 process[]id
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--91
+\OT1/cmr/m/n/10.95 and
+ []
+
+
+Overfull \hbox (1.41791pt too wide) in paragraph at lines 91--91
+[]\OT1/cmr/m/n/10.95 infrequent| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--91
+[]\OT1/cmr/m/n/10.95 Sequential
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--91
+\OT1/cmr/m/n/10.95 on pro-
+ []
+
+
+Underfull \hbox (badness 3536) in paragraph at lines 91--91
+[]\OT1/cmr/m/n/10.95 Infrequent in-ser-tion but
+ []
+
+
+Underfull \hbox (badness 5189) in paragraph at lines 92--92
+[]\OT1/cmr/m/n/10.95 name, as-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--92
+[]\OT1/cmr/m/n/10.95 dynamic
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--92
+\OT1/cmr/m/n/10.95 hash on
+ []
+
+
+Underfull \hbox (badness 6542) in paragraph at lines 92--92
+\OT1/cmr/m/n/10.95 name and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--93
+[]\OT1/cmr/m/n/10.95 process[]id
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--93
+[]\OT1/cmr/m/n/10.95 dynamic
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--93
+\OT1/cmr/m/n/10.95 hash on
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--93
+\OT1/cmr/m/n/10.95 pro-cess[]id
+ []
+
+
+Underfull \hbox (badness 5954) in paragraph at lines 93--93
+[]\OT1/cmr/m/n/10.95 Frequent in-ser-tion with
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
+[]\OT1/cmr/m/n/10.95 type and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
+[]\OT1/cmr/m/n/10.95 Multitable
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
+\OT1/cmr/m/n/10.95 clus-ter-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
+\OT1/cmr/m/n/10.95 ing with
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
+\OT1/cmr/m/n/10.95 type for
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
+\OT1/cmr/m/n/10.95 clus-ter-ing
+ []
+
+
+Overfull \hbox (102.25754pt too wide) in paragraph at lines 86--96
 [] 
  []
 
 [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 90.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 90.
+Overfull \vbox (1.14333pt too high) has occurred while \output is active []
+
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 98--98
+[]\OT1/cmr/m/n/10.95 Table
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--98
+[]\OT1/cmr/m/n/10.95 Query
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--98
+\OT1/cmr/m/n/10.95 Num-ber
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--98
+[]\OT1/cmr/m/n/10.95 Query
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--98
+\OT1/cmr/m/n/10.95 Fre-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--98
+[]\OT1/cmr/m/n/10.95 Selected
+ []
+
+
+Underfull \hbox (badness 2111) in paragraph at lines 98--98
+\OT1/cmr/m/n/10.95 File Or-ga-
+ []
+
+
+Underfull \hbox (badness 1789) in paragraph at lines 101--101
+[]\OT1/cmr/m/n/10.95 7 Ran-dom
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--101
+\OT1/cmr/m/n/10.95 ser-tion of
+ []
+
+
+Overfull \hbox (10.56076pt too wide) in paragraph at lines 101--101
+\OT1/cmr/m/n/10.95 job[]date[]end)| 
+ []
+
+
+Underfull \hbox (badness 1132) in paragraph at lines 101--101
+[]$\OML/cmm/m/it/10.95 B$ \OT1/cmr/m/n/10.95 tree on
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--101
+\OT1/cmr/m/n/10.95 you'll need a ran-dom
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--103
+[]\OT1/cmr/m/n/10.95 12 Range
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--103
+[]\OT1/cmr/m/n/10.95 name (in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--103
+\OT1/cmr/m/n/10.95 or-der) by
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--103
+[]\OT1/cmr/m/n/10.95 Multitable
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--103
+\OT1/cmr/m/n/10.95 Clus-ter-ing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--103
+\OT1/cmr/m/n/10.95 with cat-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--103
+\OT1/cmr/m/n/10.95 e-gory for
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--103
+\OT1/cmr/m/n/10.95 clus-ter-ing
+ []
+
+
+Underfull \hbox (badness 6542) in paragraph at lines 103--103
+\OT1/cmr/m/n/10.95 and name
+ []
+
+
+Overfull \hbox (119.25754pt too wide) in paragraph at lines 97--105
+[][] 
+ []
+
+[5]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 107.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 107.
  (./FinalProject.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 90.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 90.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 107.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 107.
 Package rerunfilecheck Info: File `FinalProject.out' has not changed.
 (rerunfilecheck)             Checksum: ECF9D5C6D585346E20166E2790C364C1;148.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 90.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 107.
  ) 
 Here is how much of TeX's memory you used:
- 15739 strings out of 492982
- 294921 string characters out of 6134896
- 354714 words of memory out of 5000000
+ 15741 strings out of 492982
+ 294933 string characters out of 6134896
+ 358714 words of memory out of 5000000
  19030 multiletter control sequences out of 15000+600000
  9842 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,8n,54p,415b,327s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,9n,54p,415b,327s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on FinalProject.pdf (5 pages, 104438 bytes).
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr8.pfb>
+Output written on FinalProject.pdf (7 pages, 115807 bytes).
 PDF statistics:
- 71 PDF objects out of 1000 (max. 8388607)
- 57 compressed objects within 1 object stream
- 10 named destinations out of 1000 (max. 500000)
+ 90 PDF objects out of 1000 (max. 8388607)
+ 72 compressed objects within 1 object stream
+ 12 named destinations out of 1000 (max. 500000)
  42 words of extra memory for PDF output out of 10000 (max. 10000000)
 
