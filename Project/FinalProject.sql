@@ -204,6 +204,6 @@ AS
 BEGIN
 	INSERT INTO Assemblies VALUES (@assembly_id, @date_ordered, @assembly_details) --insert into assemblies
 	INSERT INTO Orders VALUES (@name,@assembly_id) --record what customer made the order
-	--INSERT INTO Manufactures (process_id,assembly_id) SELECT *,@assembly_id FROM (SELECT value FROM STRING_SPLIT(@process_ids,','))
+	INSERT INTO Manufactures SELECT *,@assembly_id FROM STRING_SPLIT(@process_ids,',')
 END
 GO
