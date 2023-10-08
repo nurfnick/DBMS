@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS Fit_Job;
 DROP TABLE IF EXISTS Costs;
 DROP TABLE IF EXISTS Transact;
 DROP TABLE IF EXISTS Assign;
-DROP TABLE IF EXISTS Job;
+DROP TABLE IF EXISTS Jobs;
 DROP TABLE IF EXISTS Maintains;
 DROP TABLE IF EXISTS Account;
 DROP TABLE IF EXISTS Cut;
@@ -35,8 +35,7 @@ assembly_details VARCHAR(64)
 CREATE TABLE Manufacture (
 process_id INT,
 assembly_id INT,
-CONSTRAINT PK_manufacture PRIMARY KEY (process_id, assembly_id),
-CONSTRAINT FK_processid FOREIGN KEY(process_id) REFERENCES Process,
+CONSTRAINT FK_processid FOREIGN KEY(process_id) REFERENCES Processes,
 CONSTRAINT FK_aid FOREIGN KEY(assembly_id) REFERENCES Assemblies
 );
 CREATE TABLE Customer(
@@ -61,43 +60,39 @@ dept_num INT,
 process_id INT,
 CONSTRAINT PK_Supervises PRIMARY KEY(dept_num, process_id),
 CONSTRAINT FK_deptnum FOREIGN KEY (dept_num) REFERENCES Department,
-CONSTRAINT FK_proccessid FOREIGN KEY (process_id) REFERENCES Process
+CONSTRAINT FK_proccessid FOREIGN KEY (process_id) REFERENCES Processes
 );
 CREATE TABLE Fit(
 process_id INT PRIMARY KEY,
 fit_type VARCHAR(64),
-CONSTRAINT FK_fit_process FOREIGN KEY(process_id) REFERENCES Process
+CONSTRAINT FK_fit_process FOREIGN KEY(process_id) REFERENCES Processes
 );
 CREATE TABLE Paint(
 process_id INT PRIMARY KEY,
 paint_type VARCHAR(64),
 paint_method VARCHAR(64),
-CONSTRAINT FK_paint_process FOREIGN KEY(process_id) REFERENCES Process
+CONSTRAINT FK_paint_process FOREIGN KEY(process_id) REFERENCES Processes
 );
 CREATE TABLE Cut(
 process_id INT PRIMARY KEY,
 cutting_type VARCHAR(64),
 machine_type VARCHAR(64),
-CONSTRAINT FK_cut_process FOREIGN KEY(process_id) REFERENCES Process
+CONSTRAINT FK_cut_process FOREIGN KEY(process_id) REFERENCES Processes
 );
 CREATE TABLE Account(
 acct_id INT PRIMARY KEY,
-type VARCHAR(10) check (type in ('Process','Assembly','Department')),
+type_acct VARCHAR(10) check (type_acct in ('Process','Assembly','Department')),
 date_established DATE,
 costs INT
 );
 CREATE TABLE Maintains(
 acct_id INT,
-dept_num INT,
-process_id INT,
-assembly_id INT,
-CONSTRAINT PK_maintain PRIMARY KEY(acct_id,dept_num,process_id,assembly_id),
-CONSTRAINT FK_maintain_process FOREIGN KEY(process_id) REFERENCES Process,
-CONSTRAINT FK_maintain_acct FOREIGN KEY(acct_id) REFERENCES Account,
-CONSTRAINT FK_maintain_department FOREIGN KEY(dept_num) REFERENCES Department,
-CONSTRAINT FK_maintain_assembly FOREIGN KEY(assembly_id) REFERENCES Assemblies
+type_acct VARCHAR(10) check (type_acct in ('Process','Assembly','Department')),
+num INT,
+CONSTRAINT PK_maintain PRIMARY KEY(acct_id,type_acct,num),
+CONSTRAINT FK_maintain_acct FOREIGN KEY(acct_id) REFERENCES Account--should have FKey on the num but couldn't figure out how to make that work
 );
-CREATE TABLE Job(
+CREATE TABLE Jobs(
 job_num INT PRIMARY KEY,
 job_date_commenced DATE,
 job_date_completed DATE
@@ -107,8 +102,8 @@ job_num INT,
 assembly_id INT,
 process_id INT,
 CONSTRAINT PK_assign PRIMARY KEY(job_num,process_id,assembly_id),
-CONSTRAINT FK_assign_process FOREIGN KEY(process_id) REFERENCES Process,
-CONSTRAINT FK_assign_job FOREIGN KEY(job_num) REFERENCES Job,
+CONSTRAINT FK_assign_process FOREIGN KEY(process_id) REFERENCES Processes,
+CONSTRAINT FK_assign_job FOREIGN KEY(job_num) REFERENCES Jobs,
 CONSTRAINT FK_assign_assembly FOREIGN KEY(assembly_id) REFERENCES Assemblies
 );
 CREATE TABLE Transact(
@@ -123,24 +118,24 @@ process_id INT,
 assembly_id INT,
 tran_num INT,
 CONSTRAINT PK_Costs PRIMARY KEY(job_num,acct_id,dept_num,process_id,assembly_id, tran_num),
-CONSTRAINT FK_cost_process FOREIGN KEY(process_id) REFERENCES Process,
+CONSTRAINT FK_cost_process FOREIGN KEY(process_id) REFERENCES Processes,
 CONSTRAINT FK_cost_acct FOREIGN KEY(acct_id) REFERENCES Account,
 CONSTRAINT FK_cost_department FOREIGN KEY(dept_num) REFERENCES Department,
 CONSTRAINT FK_cost_assembly FOREIGN KEY(assembly_id) REFERENCES Assemblies,
 CONSTRAINT FK_cost_transact FOREIGN KEY(tran_num) REFERENCES Transact,
-CONSTRAINT FK_cost_job FOREIGN KEY(job_num) REFERENCES Job
+CONSTRAINT FK_cost_job FOREIGN KEY(job_num) REFERENCES Jobs
 );
 CREATE TABLE Fit_Job(
 job_num INT PRIMARY KEY,
 labor NUMERIC(3,0),
-CONSTRAINT FK_fit_job FOREIGN KEY(job_num) REFERENCES Job
+CONSTRAINT FK_fit_job FOREIGN KEY(job_num) REFERENCES Jobs
 );
 CREATE TABLE Paint_Job(
 job_num INT PRIMARY KEY,
 color VARCHAR(10),
 volume NUMERIC(3,2),
 labor NUMERIC(3,0),
-CONSTRAINT FK_paint_job FOREIGN KEY(job_num) REFERENCES Job
+CONSTRAINT FK_paint_job FOREIGN KEY(job_num) REFERENCES Jobs
 );
 CREATE TABLE Cut_Job(
 job_num INT PRIMARY KEY,
@@ -148,7 +143,7 @@ machine_type VARCHAR(10),
 time NUMERIC(2,2),
 material NUMERIC(2,2),
 labor NUMERIC(3,0),
-CONSTRAINT FK_cut_job FOREIGN KEY(job_num) REFERENCES Job
+CONSTRAINT FK_cut_job FOREIGN KEY(job_num) REFERENCES Jobs
 );
 
 DROP PROCEDURE IF EXISTS query1 --get rid of the procedure if you built it before
@@ -163,6 +158,10 @@ BEGIN
 	INSERT INTO Customer VALUES (@name, @address, @category) --insert me now
 END
 GO
+EXEC query1 @name = 'Nick', @address = NULL, @category = 10
+GO
+
+GO
 DROP PROCEDURE IF EXISTS query2 --get rid of the procedure if you built it before
 
 GO
@@ -173,6 +172,8 @@ AS
 BEGIN
 	INSERT INTO Department VALUES (@dept_num, @dept_data) --insert me now
 END
+GO
+EXEC query2 @dept_num = 1, @dept_data = NULL
 GO
 DROP PROCEDURE IF EXISTS query3 --get rid of the procedure if you built it before
 
@@ -185,11 +186,13 @@ CREATE PROCEDURE query3 --this is the first.  Need three inputs
     @type_method VARCHAR(64)
 AS
 BEGIN
-	INSERT INTO Process VALUES (@process_id, @process_data) --insert into process
+	INSERT INTO Processes VALUES (@process_id, @process_data) --insert into process
 	IF @type = 'Fit' INSERT INTO Fit VALUES (@process_id, @type_type)
 	IF @type = 'Paint' INSERT INTO Paint VALUES (@process_id, @type_type, @type_method)
 	IF @type = 'Cut' INSERT INTO Cut VALUES(@process_id, @type_type, @type_method)
 END
+GO
+EXEC query3 1,'','Fit',NULL,NULL
 GO
 DROP PROCEDURE IF EXISTS query4 --get rid of the procedure if you built it before
 
@@ -204,6 +207,71 @@ AS
 BEGIN
 	INSERT INTO Assemblies VALUES (@assembly_id, @date_ordered, @assembly_details) --insert into assemblies
 	INSERT INTO Orders VALUES (@name,@assembly_id) --record what customer made the order
-	INSERT INTO Manufactures SELECT *,@assembly_id FROM STRING_SPLIT(@process_ids,',')
+	INSERT INTO Manufacture SELECT *,@assembly_id FROM STRING_SPLIT(@process_ids,',')--record all the processes needed to complete this assembly
 END
 GO
+EXEC query4 1,'10/01/23',NULL,'Nick','1,1,1'
+GO
+DROP PROCEDURE IF EXISTS query5 --get rid of the procedure if you built it before
+
+GO
+CREATE PROCEDURE query5 
+    @acct_id INT,
+    @type VARCHAR(10),
+    @date_established DATE,
+	@num INT
+AS
+BEGIN
+	INSERT INTO Account VALUES (@acct_id,@type,@date_established,0) --insert into account
+	INSERT INTO Maintains VALUES (@acct_id,@type,@num) --pass this info into maintains table
+END
+GO
+EXEC query5 1,'Process','10/10/20',1
+
+GO
+
+
+
+DROP PROCEDURE IF EXISTS query6 --get rid of the procedure if you built it before
+
+GO
+CREATE PROCEDURE query6 
+    @job_num INT,
+    @job_date_commenced DATE,
+    @assembly_id INT,
+	@process_id INT
+AS
+BEGIN
+	INSERT INTO Jobs (job_num,job_date_commenced) VALUES (@job_num,@job_date_commenced) --insert into account
+	INSERT INTO Assign VALUES (@job_num,@assembly_id,@process_id) --pass this info into maintains table
+END
+
+GO
+EXEC query6 50,NULL,1,1
+GO
+
+DROP PROCEDURE IF EXISTS query7 --get rid of the procedure if you built it before
+
+GO
+CREATE PROCEDURE query7 
+    @job_num INT,
+    @job_date_completed DATE,
+    @job_type VARCHAR(10),
+	@labor NUMERIC(3,0),
+	@machine_type VARCHAR(10),
+	@time NUMERIC(2,2),
+	@material NUMERIC(2,2),
+	@color VARCHAR(10),
+	@volume NUMERIC(3,2)
+
+AS
+BEGIN
+	Update Jobs set job_date_completed = @job_date_completed where job_num = @job_num
+	IF @job_type = 'Fit' INSERT INTO Fit_Job VALUES (@job_num, @labor)
+	IF @job_type = 'Paint' INSERT INTO Paint_Job VALUES (@job_num, @color, @volume,@labor)
+	IF @job_type = 'Cut' INSERT INTO Cut_Job VALUES(@job_num, @machine_type, @time,@material,@labor)
+END
+GO
+
+EXEC query7 @job_num = 50, @job_date_completed = '10/01/23', @job_type = 'Fit', @labor = 4.32, @machine_type = NULL, @time = NULL,@color = NULL, @volume = NULL, @material = NULL;  
+GO  
