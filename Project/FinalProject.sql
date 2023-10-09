@@ -100,7 +100,7 @@ job_date_completed DATE
 CREATE TABLE Assign(
 job_num INT,
 assembly_id INT,
-process_id INT,
+process_id INT,--this gets the job started but not all of them?
 CONSTRAINT PK_assign PRIMARY KEY(job_num,process_id,assembly_id),
 CONSTRAINT FK_assign_process FOREIGN KEY(process_id) REFERENCES Processes,
 CONSTRAINT FK_assign_job FOREIGN KEY(job_num) REFERENCES Jobs,
@@ -110,18 +110,14 @@ CREATE TABLE Transact(
 tran_num INT PRIMARY KEY,
 sup_cost INT
 );
-CREATE TABLE Costs(
+CREATE TABLE Costs(--either transact or cost will need a process_id otherwise we won't know where to bill it.
 job_num INT,
-acct_id INT,
-dept_num INT,
-process_id INT,
-assembly_id INT,
 tran_num INT,
-CONSTRAINT PK_Costs PRIMARY KEY(job_num,acct_id,dept_num,process_id,assembly_id, tran_num),
-CONSTRAINT FK_cost_process FOREIGN KEY(process_id) REFERENCES Processes,
-CONSTRAINT FK_cost_acct FOREIGN KEY(acct_id) REFERENCES Account,
-CONSTRAINT FK_cost_department FOREIGN KEY(dept_num) REFERENCES Department,
-CONSTRAINT FK_cost_assembly FOREIGN KEY(assembly_id) REFERENCES Assemblies,
+CONSTRAINT PK_Costs PRIMARY KEY(job_num, tran_num),
+--CONSTRAINT FK_cost_process FOREIGN KEY(process_id) REFERENCES Processes,
+--CONSTRAINT FK_cost_acct FOREIGN KEY(acct_id) REFERENCES Account,
+--CONSTRAINT FK_cost_department FOREIGN KEY(dept_num) REFERENCES Department,
+--CONSTRAINT FK_cost_assembly FOREIGN KEY(assembly_id) REFERENCES Assemblies,
 CONSTRAINT FK_cost_transact FOREIGN KEY(tran_num) REFERENCES Transact,
 CONSTRAINT FK_cost_job FOREIGN KEY(job_num) REFERENCES Jobs
 );
