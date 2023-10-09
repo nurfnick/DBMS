@@ -83,13 +83,14 @@ CREATE TABLE Account(
 acct_id INT PRIMARY KEY,
 type_acct VARCHAR(10) check (type_acct in ('Process','Assembly','Department')),
 date_established DATE,
+num INT,
 costs INT
 );
 CREATE TABLE Maintains(
 acct_id INT,
 type_acct VARCHAR(10) check (type_acct in ('Process','Assembly','Department')),
-num INT,
-CONSTRAINT PK_maintain PRIMARY KEY(acct_id,type_acct,num),
+--num INT,
+CONSTRAINT PK_maintain PRIMARY KEY(acct_id,type_acct),
 CONSTRAINT FK_maintain_acct FOREIGN KEY(acct_id) REFERENCES Account--should have FKey on the num but couldn't figure out how to make that work
 );
 CREATE TABLE Jobs(
@@ -113,8 +114,9 @@ sup_cost INT
 CREATE TABLE Costs(--either transact or cost will need a process_id otherwise we won't know where to bill it.
 job_num INT,
 tran_num INT,
-CONSTRAINT PK_Costs PRIMARY KEY(job_num, tran_num),
---CONSTRAINT FK_cost_process FOREIGN KEY(process_id) REFERENCES Processes,
+process_id INT,
+--CONSTRAINT PK_Costs PRIMARY KEY(job_num, tran_num),
+CONSTRAINT FK_cost_process FOREIGN KEY(process_id) REFERENCES Processes,
 --CONSTRAINT FK_cost_acct FOREIGN KEY(acct_id) REFERENCES Account,
 --CONSTRAINT FK_cost_department FOREIGN KEY(dept_num) REFERENCES Department,
 --CONSTRAINT FK_cost_assembly FOREIGN KEY(assembly_id) REFERENCES Assemblies,
@@ -154,7 +156,7 @@ BEGIN
 	INSERT INTO Customer VALUES (@name, @address, @category) --insert me now
 END
 GO
-EXEC query1 @name = 'Nick', @address = NULL, @category = 10
+--EXEC query1 @name = 'Nick', @address = NULL, @category = 10
 GO
 
 GO
@@ -169,7 +171,7 @@ BEGIN
 	INSERT INTO Department VALUES (@dept_num, @dept_data) --insert me now
 END
 GO
-EXEC query2 @dept_num = 1, @dept_data = NULL
+--EXEC query2 @dept_num = 1, @dept_data = NULL
 GO
 DROP PROCEDURE IF EXISTS query3 --get rid of the procedure if you built it before
 
@@ -188,7 +190,7 @@ BEGIN
 	IF @type = 'Cut' INSERT INTO Cut VALUES(@process_id, @type_type, @type_method)
 END
 GO
-EXEC query3 1,'','Fit',NULL,NULL
+--EXEC query3 1,'','Fit',NULL,NULL
 GO
 DROP PROCEDURE IF EXISTS query4 --get rid of the procedure if you built it before
 
@@ -206,7 +208,7 @@ BEGIN
 	INSERT INTO Manufacture SELECT *,@assembly_id FROM STRING_SPLIT(@process_ids,',')--record all the processes needed to complete this assembly
 END
 GO
-EXEC query4 1,'10/01/23',NULL,'Nick','1,1,1'
+--EXEC query4 1,'10/01/23',NULL,'Nick','1,1,1'
 GO
 DROP PROCEDURE IF EXISTS query5 --get rid of the procedure if you built it before
 
@@ -218,11 +220,11 @@ CREATE PROCEDURE query5
 	@num INT
 AS
 BEGIN
-	INSERT INTO Account VALUES (@acct_id,@type,@date_established,0) --insert into account
-	INSERT INTO Maintains VALUES (@acct_id,@type,@num) --pass this info into maintains table
+	INSERT INTO Account VALUES (@acct_id,@type,@date_established,@num,0) --insert into account
+	--INSERT INTO Maintains VALUES (@acct_id,@type)--,@num) --pass this info into maintains table
 END
 GO
-EXEC query5 1,'Process','10/10/20',1
+--EXEC query5 1,'Process','10/10/20',1
 
 GO
 
@@ -243,7 +245,7 @@ BEGIN
 END
 
 GO
-EXEC query6 50,NULL,1,1
+--EXEC query6 50,NULL,1,1
 GO
 
 DROP PROCEDURE IF EXISTS query7 --get rid of the procedure if you built it before
@@ -269,5 +271,5 @@ BEGIN
 END
 GO
 
-EXEC query7 @job_num = 50, @job_date_completed = '10/01/23', @job_type = 'Fit', @labor = 4.32, @machine_type = NULL, @time = NULL,@color = NULL, @volume = NULL, @material = NULL;  
+--EXEC query7 @job_num = 50, @job_date_completed = '10/01/23', @job_type = 'Fit', @labor = 4.32, @machine_type = NULL, @time = NULL,@color = NULL, @volume = NULL, @material = NULL;  
 GO  
