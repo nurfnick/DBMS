@@ -62,9 +62,9 @@ Paint(\underline{process\_id}, paint\_type, painting\_method)
 
 Cut(\underline{process\_id},cutting\_type, machine\_type)
 
-Maintain(\underline{acct\_id}, \underline{dept\_num}, \underline{process\_id}, \underline{assembly\_id})
+%Maintain(\underline{acct\_id}, \underline{dept\_num}, \underline{process\_id}, \underline{assembly\_id})%I think this should be cut entirely
 
-Account(\underline{acct\_id}, type, date\_established, costs)
+Account(\underline{acct\_id}, type, type\_id, date\_established, costs)
 
 Job(\underline{job\_num}, job\_date\_commenced, job\_completed)
 
@@ -85,7 +85,7 @@ Cut\_Job( \underline{job\_num}, machine\_type, time, material, labor)
 
 \begin{tabular}{|p{.75in}|p{.75in}|p{.75in}|p{.65in}|p{.75in}|p{1.75in}|}\hline
 Table Name & Query Number and Type & Search Key& Query Frequency& Selected File Organization & Justification\\ \hline\hline
-Customer & 1 Insertion & name & 30/Day & heap tree on name & At the moment adding lots of data and not accessing it directly often\\ \hline 
+Customer & 1 Insertion & name & 30/Day & heap on name & At the moment adding lots of data and not accessing it directly often\\ \hline 
 Department & 2 Insertion& dept\_num & infrequent & Sequential on dept\_num & Since this data is added infrequently but referenced by other tables often, sequential insertion seems appropriate.\\ \hline
 Process (and sub categories)& 3 Insertion & process\_id,  (sub category info) & infrequent & Sequential on process\_id (and sub category id)&  Infrequent insertion but often called\\ \hline
 Supervises & 3 Insertion & process\_id and dept\_num & infrequent & Sequential on process\_id &Infrequent insertion but called often on process\_id\\\hline
@@ -96,11 +96,17 @@ Account & 5 Insertion & type and acct\_id & 10/Day & Multitable clustering with 
 \newpage
 \begin{tabular}{|p{.75in}|p{.75in}|p{.75in}|p{.65in}|p{.75in}|p{1.75in}|}\hline
 Table Name & Query Number and Type & Search Key& Query Frequency& Selected File Organization & Justification\\ \hline\hline
-Job & 6 Insertion & job\_num        \\ \hline
+Job & 6 Insertion & job\_num   &50/day& B tree on job\_num& B tree is appropriate for often inserted and often called index.     \\ \hline
 
 Job & 7 Random Search (Insertion of job\_date\_end) & job\_num & 50/Day & $B$ tree on job\_num  &To enter completion data, you'll need a random search on job\_num.  $B$ tree will be an efficient storage for all these records \\ \hline
 
+Transaction and Accounts & 8 Random Search & tran\_no and ids for account &50/day& sequential on the ids for the accounts and tran\_no& We'll need to update a lot of accounts here so it will be important to get to them quickly\\ \hline
+
 Customer & 12 Range Search & name (in order) by category &100/Day & Multitable Clustering with category for clustering and name stored in a $B^+$ tree& Since this data is accessed often this table should be pre-built.  New customers are added often so $B^+$ tree storage on name will be most efficient within this multitable\\\hline
+
+Cut\_Job & 13 Range Search & job\_num & 1/Month & Sequential Index on job\_num & Since we are doing a range search, we would like these to be in order. \\ \hline
+
+Paint\_Job & 14 Random Search & job\_num &1/Week & Dynamic Hash function on job\_num & since we are accessing occasionally but adding lots of jobs, it would be nice to have quick access via a hash. \\ \hline
 \end{tabular}
 
 Info on Azure indexing can be found \href{https://learn.microsoft.com/en-us/sql/relational-databases/indexes/indexes?view=sql-server-ver16}{here}.

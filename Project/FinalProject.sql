@@ -144,6 +144,17 @@ labor NUMERIC(3,0),
 CONSTRAINT FK_cut_job FOREIGN KEY(job_num) REFERENCES Jobs
 );
 
+
+
+CREATE INDEX customer_index ON Customer(name ASC, 
+category)
+
+CREATE INDEX cutjob_index ON Cut_Job(job_num)
+
+CREATE INDEX paintjob_index ON Paint_Job(job_num)
+
+
+GO
 DROP PROCEDURE IF EXISTS query1 --get rid of the procedure if you built it before
 
 GO
