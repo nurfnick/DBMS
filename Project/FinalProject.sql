@@ -143,16 +143,31 @@ material NUMERIC(2,2),
 labor NUMERIC(3,0),
 CONSTRAINT FK_cut_job FOREIGN KEY(job_num) REFERENCES Jobs
 );
+go
+CREATE INDEX customer_name ON Customer(name)--query 1 insertion of customers
+GO
+CREATE INDEX dept_num ON Department(dept_num ASC) --query 2 insert of departments
+GO
+CREATE INDEX process ON Processes(process_id ASC) --query 3 making sequential indexes
+CREATE INDEX process_cut ON Cut(process_id ASC)
+CREATE INDEX process_paint ON Paint(process_id ASC)
+CREATE INDEX process_fit ON Fit(process_id ASC)
+GO
+CREATE INDEX supervies ON Supervise(process_id, dept_num) --query 3 getting the supervise table indexed
+GO
+CREATE INDEX orders_index ON Orders(name, assembly_id) --query 4 keeping the name and assembly_id together
 
-
-
-CREATE INDEX customer_index ON Customer(name ASC, 
-category)
-
-CREATE INDEX cutjob_index ON Cut_Job(job_num)
-
-CREATE INDEX paintjob_index ON Paint_Job(job_num)
-
+CREATE INDEX Manufacture_index ON Manufacture(assembly_id)--query4 
+GO
+CREATE INDEX account_index ON Account(type_acct, num) --query5 this will be accessed a bunch to join other tables. 
+--No need to create 6 and 7 as B tree is created on Primary Key automatically
+GO
+CREATE INDEX customer_index ON Customer(name ASC, category)--query 12.  Joining the name and category and keeping name in order.
+GO
+CREATE INDEX cutjob_index ON Cut_Job(job_num)--query 13
+GO
+CREATE INDEX paintjob_index ON Paint_Job(job_num)--query 14
+GO
 
 GO
 DROP PROCEDURE IF EXISTS query1 --get rid of the procedure if you built it before

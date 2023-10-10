@@ -90,8 +90,8 @@ Department & 2 Insertion& dept\_num & infrequent & Sequential on dept\_num & Sin
 Process (and sub categories)& 3 Insertion & process\_id,  (sub category info) & infrequent & Sequential on process\_id (and sub category id)&  Infrequent insertion but often called\\ \hline
 Supervises & 3 Insertion & process\_id and dept\_num & infrequent & Sequential on process\_id &Infrequent insertion but called often on process\_id\\\hline
 Orders & 4 Insertion & name, assembly\_id& 40/Day&dynamic hash on name and ass\_id& This is a lot of orders to create each day.  These will need to be joined with other tables frequently as is happening in our insertion so it is important to be easily accessible  \\ \hline
-Create  & 4 Insertion & process\_id and ass\_id &40/Day &dynamic hash on process\_id and ass\_id & Frequent insertion with joins on other tables            \\ \hline
-Account & 5 Insertion & type and acct\_id & 10/Day & Multitable clustering with type for clustering and acct\_id sequential& This structure will make for fast access later and there is a fair amount of additions here.\\ \hline
+Manufacture  & 4 Insertion & assembly\_id &40/Day (but each assembly may have many processes) &dynamic hash on assembly\_id & Frequent insertion with joins on other tables            \\ \hline
+Account & 5 Insertion & type\_acct and num & 10/Day & Multitable clustering with type\_acct for clustering and num sequential& This structure will make for fast access later and there is a fair amount of additions here.\\ \hline
 \end{tabular}
 \newpage
 \begin{tabular}{|p{.75in}|p{.75in}|p{.75in}|p{.65in}|p{.75in}|p{1.75in}|}\hline
@@ -101,6 +101,12 @@ Job & 6 Insertion & job\_num   &50/day& B tree on job\_num& B tree is appropriat
 Job & 7 Random Search (Insertion of job\_date\_end) & job\_num & 50/Day & $B$ tree on job\_num  &To enter completion data, you'll need a random search on job\_num.  $B$ tree will be an efficient storage for all these records \\ \hline
 
 Transaction and Accounts & 8 Random Search & tran\_no and ids for account &50/day& sequential on the ids for the accounts and tran\_no& We'll need to update a lot of accounts here so it will be important to get to them quickly\\ \hline
+
+Account & 9 Random Search & type = Assembly and num &200/day& B tree on num & We have previously done clustering on these attributes so this will require nothing additional to the file\\ \hline
+
+Job  & 10 Range Search & job\_date\_commenced and job\_date\_completed & 20/day & Sequential index on both dates & Frequent call.  If put in order can retrieve data faster\\\hline
+
+Manufacture & 11 Random Search & assembly\_id &100/day& Sequential index on assembly\_id & This index was already created for Query 4.\\\hline
 
 Customer & 12 Range Search & name (in order) by category &100/Day & Multitable Clustering with category for clustering and name stored in a $B^+$ tree& Since this data is accessed often this table should be pre-built.  New customers are added often so $B^+$ tree storage on name will be most efficient within this multitable\\\hline
 
