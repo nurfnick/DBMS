@@ -12,7 +12,7 @@ public class project {
     final static String HOSTNAME = "jaco0121-sql-server.database.windows.net";
     final static String DBNAME = "cs-dsa-4513-sql-db";
     final static String USERNAME = "njacob";
-    final static String PASSWORD = "Not Today Satan";
+    final static String PASSWORD = "";
 
     // Database connection string
     final static String URL = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;",
@@ -28,6 +28,10 @@ public class project {
     final static String QUERY_TEMPLATE_4 = "EXEC query4 @assembly_id=?, @date_ordered = ?, @assembly_details = ?, @name = ?, @process_ids = ?;";//call the transact in SQL server    
 
     final static String QUERY_TEMPLATE_5 = "EXEC query5 @acct_id = ?, @type = ?, @date_established = ?, @num = ?;";//call the transact in SQL server    
+
+    final static String QUERY_TEMPLATE_6 = "EXEC query6 @job_num = ?, @job_date_commenced = ?, @assembly_id = ?, @process_id = ?;";//call the transact in SQL server  
+
+    final static String QUERY_TEMPLATE_7 = "EXEC query7 @job_num = ?, @job_date_completed = ?, @job_type = ?, @labor = ?, @machine_type =?, @time = ?, @material = ?, @color =?, @volume =?;";//call the transact in SQL server   
     // User input prompt//
     final static String PROMPT = 
             "\nPlease select one of the options below: \n" +
@@ -274,7 +278,122 @@ public class project {
                         	System.out.println("Could not insert account. " + sqle);                        }
                     }
 
-                    break;                  
+                    break;     
+                case "6": // Insert a new job
+                    // Collect the new job data from the user
+                    System.out.println("Please enter job number:");
+                    sc.nextLine();
+                    final int job_num = sc.nextInt(); // Read in the user input of performer ID
+
+                    System.out.println("Please enter date the job commenced:");
+                    // Preceding nextInt, nextFloar, etc. do not consume new line characters from the user input.
+                    // We call nextLine to consume that newline character, so that subsequent nextLine doesn't return nothing.
+                    sc.nextLine();
+                    final String date_job_commenced = sc.nextLine(); // Read in date.
+                    
+                    System.out.println("Please enter the assembly id:");
+                    final int assembly_id2 = sc.nextInt(); // Read in the user input assembly id
+                    
+                    System.out.println("Please enter process id that starts this assembly:");
+                    final int process_id2 = sc.nextInt(); // Read in the user input of age
+
+                    System.out.println("Connecting to the database...");
+                    // Get a database connection and prepare a query statement
+                    try (final Connection connection = DriverManager.getConnection(URL)) {
+                        try (
+                            final PreparedStatement statement = connection.prepareStatement(QUERY_TEMPLATE_6)) {
+                            // Populate the query template with the data collected from the user
+                            statement.setInt(1, job_num);
+                            statement.setString(2, date_job_commenced);
+                            statement.setInt(3, assembly_id2);
+                            statement.setInt(4, process_id2);
+
+
+                            System.out.println("Dispatching the query...");
+                            // Actually execute the populated query
+                            final int rows_inserted = statement.executeUpdate();
+                            System.out.println(String.format("Done. %d rows inserted.", rows_inserted));
+                        }
+                        catch (SQLException sqle) {
+                        	System.out.println("Could not insert job. " + sqle);                        }
+                    }
+
+                    break;
+                case "7": // End a job
+                    // Collect the new process data from the user
+                    System.out.println("Please enter job to end:");
+                    sc.nextLine();
+                    final int job_num1 = sc.nextInt(); // Read in the user input of performer ID
+
+                    System.out.println("Please enter completion date of job:");
+                    // Preceding nextInt, nextFloar, etc. do not consume new line characters from the user input.
+                    // We call nextLine to consume that newline character, so that subsequent nextLine doesn't return nothing.
+                    sc.nextLine();
+                    final String job_date_completed = sc.nextLine(); // Read in user input of performer name (white-spaces allowed).
+
+                    System.out.println("Please enter the type for the process (Fit, Paint, or Cut):");
+                    final String job_type = sc.nextLine(); // Read in the type
+                    double labor = 0.0;
+                    String machine_type = null;
+                    double time = 0.0;
+                    double material = 0.0;
+                    String color = null;
+                    double volume = 0.0;
+                    
+                    if (job_type.equalsIgnoreCase("Fit")) {
+                    	System.out.println("Please enter the labor hours:");
+                    	labor = sc.nextDouble();
+                    }
+                    else if (job_type.equalsIgnoreCase("Paint")) {
+                    	System.out.println("Please enter the labor hours:");
+                    	labor = sc.nextDouble();                    	
+                    	System.out.println("Please enter the paint color:");
+                    	color = sc.nextLine();
+                    	System.out.println("Please enter the paint volume:");
+                    	volume = sc.nextDouble();
+
+                    }
+                    else if (job_type.equalsIgnoreCase("Cut")) {
+                    	System.out.println("Please enter the labor hours:");
+                    	labor = sc.nextDouble();                    	
+                    	System.out.println("Please enter the machine type:");
+                    	machine_type = sc.nextLine();
+                    	System.out.println("Please enter the time:");
+                    	time = sc.nextDouble();
+                    	System.out.println("Please enter the material:");
+                    	material = sc.nextDouble();
+                    }
+                    else {
+                    	System.out.println("Why did you not input the type correctly...");
+                    }
+                   
+                    System.out.println("Connecting to the database...");
+                    // Get a database connection and prepare a query statement
+                    try (final Connection connection = DriverManager.getConnection(URL)) {
+                        try (
+                            final PreparedStatement statement = connection.prepareStatement(QUERY_TEMPLATE_7)) {
+                            // Populate the query template with the data collected from the user
+                            statement.setInt(1, job_num1);
+                            statement.setString(2, job_date_completed);
+                            statement.setString(3, job_type);
+                            statement.setDouble(4, labor);
+                            statement.setString(5, machine_type);
+                            statement.setDouble(6, time);
+                            statement.setDouble(7, material);
+                            statement.setString(8, color);
+                            statement.setDouble(9, volume);
+
+
+                            System.out.println("Dispatching the query...");
+                            // Actually execute the populated query
+                            final int rows_inserted = statement.executeUpdate();
+                            System.out.println(String.format("Done. %d rows inserted.", rows_inserted));
+                        }
+                        catch (SQLException sqle) {
+                        	System.out.println("Could not insert process. " + sqle);                        }
+                    }
+
+                    break;                    
                 case "13": // Insert a new performer option with director
                     // Collect the new performer data from the user
                     System.out.println("Please enter integer performer ID:");

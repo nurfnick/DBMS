@@ -5,6 +5,9 @@
 \usepackage{amsfonts}
 \usepackage{tikz}
 \usepackage{ wasysym }
+\usepackage{fancyvrb}
+
+
 
 \newtheorem{example}{Example}
 
@@ -100,7 +103,7 @@ Job & 6 Insertion & job\_num   &50/day& B tree on job\_num& B tree is appropriat
 
 Job & 7 Random Search (Insertion of job\_date\_end) & job\_num & 50/Day & $B$ tree on job\_num  &To enter completion data, you'll need a random search on job\_num.  $B$ tree will be an efficient storage for all these records \\ \hline
 
-Transaction and Accounts & 8 Random Search & tran\_no and ids for account &50/day& sequential on the ids for the accounts and tran\_no& We'll need to update a lot of accounts here so it will be important to get to them quickly\\ \hline
+Transaction and Costs & 8 Random Search & tran\_no  for Transaction and tran\_num, process\_id for Costs &50/day& B tree on the tran\_no and process\_id & We'll need to update a lot of accounts here so it will be important to get to them quickly\\ \hline
 
 Account & 9 Random Search & type = Assembly and num &200/day& B tree on num & We have previously done clustering on these attributes so this will require nothing additional to the file\\ \hline
 
@@ -115,5 +118,47 @@ Cut\_Job & 13 Range Search & job\_num & 1/Month & Sequential Index on job\_num &
 Paint\_Job & 14 Random Search & job\_num &1/Week & Dynamic Hash function on job\_num & since we are accessing occasionally but adding lots of jobs, it would be nice to have quick access via a hash. \\ \hline
 \end{tabular}
 
-Info on Azure indexing can be found \href{https://learn.microsoft.com/en-us/sql/relational-databases/indexes/indexes?view=sql-server-ver16}{here}.
+Info on Azure indexing can be found \href{https://learn.microsoft.com/en-us/sql/relational-databases/indexes/indexes?view=sql-server-ver16}{here}.  Implementing these was a challenge.  Azure uses B trees by default on the primary keys.  Since we knew this there were a few indexes that were unnecessary to create.  Most of the rest were created especially if there were two attributes that were being indexed together.  Sequential indexes (for range sort) were done by adding the ASC or DES tag to the attribute in question.  Each index was created and added to the SQL code creating the tables.
+
+\section{SQL and Azure}
+
+I have included my entire SQL file here.
+
+\VerbatimInput{FinalProject.sql}
+
+I will also include some screenshots of me utilizing SQL in Azure.
+\begin{enumerate}
+\item 
+\includegraphics[width = \textwidth]{insertCust1.png}
+
+\includegraphics[width = \textwidth]{insertCust2.png}
+
+\includegraphics[width = \textwidth]{insertCust3.png}
+
+\item
+\includegraphics[width = \textwidth]{insertDept1.png}
+
+\includegraphics[width = \textwidth]{insertDept2.png}
+
+\item
+\includegraphics[width = \textwidth]{insertProcess1.png}
+
+\includegraphics[width = \textwidth]{insertProcess2.png}
+
+\includegraphics[width = \textwidth]{insertProcess3.png}
+
+\item
+\includegraphics[width = \textwidth]{insertAssembly1.png}
+
+\includegraphics[width = \textwidth]{insertAssembly2.png}
+
+\includegraphics[width = \textwidth]{insertAssembly3.png}
+
+\includegraphics[width = \textwidth]{insertAssembly4.png}
+
+\item
+\includegraphics[width = \textwidth]{insertAcct1.png}
+
+\includegraphics[width = \textwidth]{insertAcct2.png}
+\end{enumerate}
 \end{document}

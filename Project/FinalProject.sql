@@ -83,9 +83,10 @@ CREATE TABLE Account(
 acct_id INT PRIMARY KEY,
 type_acct VARCHAR(10) check (type_acct in ('Process','Assembly','Department')),
 date_established DATE,
-num INT,
+type_acct_id INT, --I should be a FK to Process, Assembly or department but could not figure how to make keys conditional to value of type_acct
 costs INT
 );
+/*
 CREATE TABLE Maintains(
 acct_id INT,
 type_acct VARCHAR(10) check (type_acct in ('Process','Assembly','Department')),
@@ -93,6 +94,7 @@ type_acct VARCHAR(10) check (type_acct in ('Process','Assembly','Department')),
 CONSTRAINT PK_maintain PRIMARY KEY(acct_id,type_acct),
 CONSTRAINT FK_maintain_acct FOREIGN KEY(acct_id) REFERENCES Account--should have FKey on the num but couldn't figure out how to make that work
 );
+*/
 CREATE TABLE Jobs(
 job_num INT PRIMARY KEY,
 job_date_commenced DATE,
@@ -159,9 +161,17 @@ CREATE INDEX orders_index ON Orders(name, assembly_id) --query 4 keeping the nam
 
 CREATE INDEX Manufacture_index ON Manufacture(assembly_id)--query4 
 GO
-CREATE INDEX account_index ON Account(type_acct, num) --query5 this will be accessed a bunch to join other tables. 
+CREATE INDEX account_index ON Account(type_acct ASC, type_acct_id) --query5 this will be accessed a bunch to join other tables. 
 --No need to create 6 and 7 as B tree is created on Primary Key automatically
 GO
+CREATE INDEX transaction_index ON Transact(tran_num)
+CREATE INDEX cost_index ON Costs(tran_num, process_id)--query8 
+GO
+CREATE INDEX account_assembly ON Account(type_acct, type_acct_id)--query9
+GO 
+CREATE INDEX job_date_index ON Jobs(job_date_commenced ASC, job_date_completed ASC)--query10 make sure to order them for quicker discovery
+GO
+--CREATE INDEX manufacture_index ON Manufacture(assembly_id ASC)--query11
 CREATE INDEX customer_index ON Customer(name ASC, category)--query 12.  Joining the name and category and keeping name in order.
 GO
 CREATE INDEX cutjob_index ON Cut_Job(job_num)--query 13
@@ -221,7 +231,7 @@ GO
 DROP PROCEDURE IF EXISTS query4 --get rid of the procedure if you built it before
 
 GO
-CREATE PROCEDURE query4 --this is the first.  Need three inputs
+CREATE PROCEDURE query4 --create assembly with all associated processes for customer
 	@assembly_id INT,
     @date_ordered DATE,
     @assembly_details VARCHAR(64),
@@ -266,8 +276,8 @@ CREATE PROCEDURE query6
 	@process_id INT
 AS
 BEGIN
-	INSERT INTO Jobs (job_num,job_date_commenced) VALUES (@job_num,@job_date_commenced) --insert into account
-	INSERT INTO Assign VALUES (@job_num,@assembly_id,@process_id) --pass this info into maintains table
+	INSERT INTO Jobs (job_num,job_date_commenced) VALUES (@job_num,@job_date_commenced) --insert into jobs
+	INSERT INTO Assign VALUES (@job_num,@assembly_id,@process_id) --pass this info to assign the job to an assembly and initial process
 END
 
 GO
