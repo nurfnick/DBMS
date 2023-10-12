@@ -309,3 +309,53 @@ GO
 
 --EXEC query7 @job_num = 50, @job_date_completed = '10/01/23', @job_type = 'Fit', @labor = 4.32, @machine_type = NULL, @time = NULL,@color = NULL, @volume = NULL, @material = NULL;  
 GO  
+
+
+
+
+
+
+GO
+
+DROP PROCEDURE IF EXISTS query12 --get rid of the procedure if you built it before
+GO
+CREATE PROCEDURE query12 
+    @category NUMERIC(2,0)
+
+AS
+BEGIN
+	Select name FROM Customer WHERE category = @category ORDER BY name ASC
+END
+GO
+
+
+
+GO
+
+DROP PROCEDURE IF EXISTS query13 --get rid of the procedure if you built it before
+GO
+CREATE PROCEDURE query13 
+    @job_num_start INT,
+	@job_num_end INT
+
+AS
+BEGIN
+	DELETE FROM Cut_Job where (job_num >= @job_num_start) and (job_num<=@job_num_end)
+END
+GO
+
+
+
+GO
+
+DROP PROCEDURE IF EXISTS query14 --get rid of the procedure if you built it before
+GO
+CREATE PROCEDURE query14 
+    @job_num INT,
+	@color VARCHAR(10)
+
+AS
+BEGIN
+	Update Paint_Job set color = @color where job_num = @job_num
+END
+GO
