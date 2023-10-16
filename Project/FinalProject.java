@@ -61,7 +61,7 @@ public class project {
             "13) Delete cut jobs; \n" +
             "14) Change color; \n" +  
             "15) Import new customers; \n" +  
-            "16) Export customers by category; \n" +  
+            "16) Export customers; \n" +  
             "17) Exit!";
 
     public static void main(String[] args) throws SQLException {
