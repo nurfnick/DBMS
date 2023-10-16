@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class project {
 
@@ -492,8 +494,34 @@ public class project {
                         catch (SQLException sqle) {
                         	System.out.println("Could not modify rows. " + sqle);                        }
                     }  
-                    break;                   
+                    break;  
+                 
                     
+                case "15":
+                	System.out.println("Enter path for file to input:");
+                	sc.nextLine();
+                	final String pathtofile = sc.nextLine();
+                	File file = new File(pathtofile);
+                	try (Scanner scanfile = new Scanner(file)){ 
+                	while (scanfile.hasNextLine())
+                        try (final Connection connection = DriverManager.getConnection(URL)) {
+                            try (
+                                final PreparedStatement statement = connection.prepareStatement(QUERY_TEMPLATE_1)) {
+                                // Populate the query template with the data collected from the user
+                                statement.setString(1, scanfile.next());
+                                statement.setString(2, scanfile.next());
+                                statement.setString(3, scanfile.next());
+
+
+                                System.out.println("Dispatching the query...");
+                                // Actually execute the populated query
+                                final int rows_inserted = statement.executeUpdate();               		
+                		//System.out.println(scanfile.nextLine());
+                	}}} catch (FileNotFoundException e) {
+                		System.out.println("File not found");
+                	}
+                break;
+                
                 case "33":
                     System.out.println("Connecting to the database...");
                     // Get the database connection, create statement and execute it right away, as no user input need be collected
