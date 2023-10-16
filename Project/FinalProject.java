@@ -32,6 +32,13 @@ public class project {
     final static String QUERY_TEMPLATE_6 = "EXEC query6 @job_num = ?, @job_date_commenced = ?, @assembly_id = ?, @process_id = ?;";//call the transact in SQL server  
 
     final static String QUERY_TEMPLATE_7 = "EXEC query7 @job_num = ?, @job_date_completed = ?, @job_type = ?, @labor = ?, @machine_type =?, @time = ?, @material = ?, @color =?, @volume =?;";//call the transact in SQL server   
+    
+    final static String QUERY_TEMPLATE_12 = "EXEC query12 @category =?;";//call the transact in SQL server   
+ 
+    final static String QUERY_TEMPLATE_13 = "EXEC query13 @job_num_start =?, @job_num_end =?;";//call the transact in SQL server  
+
+    final static String QUERY_TEMPLATE_14 = "EXEC query14 @job_num =?, @color =?;";//call the transact in SQL server  
+    
     // User input prompt//
     final static String PROMPT = 
             "\nPlease select one of the options below: \n" +
@@ -393,46 +400,100 @@ public class project {
                         	System.out.println("Could not insert process. " + sqle);                        }
                     }
 
-                    break;                    
-                case "13": // Insert a new performer option with director
-                    // Collect the new performer data from the user
-                    System.out.println("Please enter integer performer ID:");
-                    final int pid2 = sc.nextInt(); // Read in the user input of performer ID
-
-                    System.out.println("Please enter performer name:");
-                    // Preceding nextInt, nextFloar, etc. do not consume new line characters from the user input.
-                    // We call nextLine to consume that newline character, so that subsequent nextLine doesn't return nothing.
+                    break;    
+                    
+                case "12":
+                	System.out.println("Please enter category number:");
                     sc.nextLine();
-                    final String pname2 = sc.nextLine(); // Read in user input of performer name (white-spaces allowed).
+                    final int catnum = sc.nextInt(); // Read in the user input of category number
+                    System.out.println("Connecting to the database...");
+                    // Get the database connection, create statement and execute it right away, as no user input need be collected
+                    try (final Connection connection = DriverManager.getConnection(URL)) {
+                        System.out.println("Dispatching the query...");
+                        final PreparedStatement statement = connection.prepareStatement(QUERY_TEMPLATE_12); {
+                            // Populate the query template with the data collected from the user
+                            statement.setInt(1, catnum);
 
-                    System.out.println("Please enter integer age of performer:");
-                    final int age2 = sc.nextInt(); // Read in the user input of age
 
-                    System.out.println("Please enter integer director ID:");
-                    final int did = sc.nextInt(); // Read in the user input of director ID                    
+                            //System.out.println("Dispatching the query...");
+                            // Actually execute the populated query
+                            final ResultSet resultSet = statement.executeQuery();
+                            
+
+
+                                System.out.println("Contents of the Customer table:");
+                                System.out.println("name");
+
+                                // Unpack the tuples returned by the database and print them out to the user
+                                while (resultSet.next()) {
+                                    System.out.println(String.format("%s",
+                                        resultSet.getString(1)));
+                                }
+                        }
+                        }
+                   
+
+                    break;                    
+
+                    
+                case "13": // delete cut jobs
+                    // Collect the new customer data from the user
+                    System.out.println("Please enter start number for range of cut jobs:");
+                    sc.nextLine();
+                    final int job_num_start = sc.nextInt(); // Read in the user input of performer ID
+           
+                    System.out.println("Please enter end number for range of cut jobs:");
+                    final int job_num_end = sc.nextInt(); // Read in the user input of age
                     
                     System.out.println("Connecting to the database...");
                     // Get a database connection and prepare a query statement
                     try (final Connection connection = DriverManager.getConnection(URL)) {
                         try (
-                            final PreparedStatement statement = connection.prepareStatement(QUERY_TEMPLATE_2)) {
+                            final PreparedStatement statement = connection.prepareStatement(QUERY_TEMPLATE_13)) {
                             // Populate the query template with the data collected from the user
-                            statement.setInt(1, pid2);
-                            statement.setString(2, pname2);
-                            statement.setInt(3, age2);
-                            statement.setInt(4, did);
+                            statement.setInt(1, job_num_start);
+                            statement.setInt(2, job_num_end);
 
 
                             System.out.println("Dispatching the query...");
                             // Actually execute the populated query
                             final int rows_inserted = statement.executeUpdate();
-                            System.out.println(String.format("Done. %d rows inserted.", rows_inserted));
+                            System.out.println(String.format("Done. %d rows deleted.", rows_inserted));
                         }
                         catch (SQLException sqle) {
-                        	System.out.println("Could not insert tuple. " + sqle);                        }
-                    }
+                        	System.out.println("Could not delete rows. " + sqle);                        }
+                    }  
+                    break;
+                case "14": // update paint job
+                    // Collect the new customer data from the user
+                    System.out.println("Please enter job number for paint job:");
+                    sc.nextLine();
+                    final int job_num2 = sc.nextInt(); // Read in the user input of performer ID
+           
+                    System.out.println("Please enter the new color:");
+                    sc.nextLine();
+                    final String color1 = sc.nextLine(); // Read in the user input of age
+                    
+                    System.out.println("Connecting to the database...");
+                    // Get a database connection and prepare a query statement
+                    try (final Connection connection = DriverManager.getConnection(URL)) {
+                        try (
+                            final PreparedStatement statement = connection.prepareStatement(QUERY_TEMPLATE_14)) {
+                            // Populate the query template with the data collected from the user
+                            statement.setInt(1, job_num2);
+                            statement.setString(2, color1);
 
-                    break;                    
+
+                            System.out.println("Dispatching the query...");
+                            // Actually execute the populated query
+                            final int rows_inserted = statement.executeUpdate();
+                            System.out.println(String.format("Done. %d rows modified.", rows_inserted));
+                        }
+                        catch (SQLException sqle) {
+                        	System.out.println("Could not modify rows. " + sqle);                        }
+                    }  
+                    break;                   
+                    
                 case "33":
                     System.out.println("Connecting to the database...");
                     // Get the database connection, create statement and execute it right away, as no user input need be collected

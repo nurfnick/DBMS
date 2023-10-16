@@ -340,11 +340,13 @@ CREATE PROCEDURE query13
 
 AS
 BEGIN
-	DELETE FROM Cut_Job where (job_num >= @job_num_start) and (job_num<=@job_num_end)
+	Delete FROM Jobs Where job_num in (SELECT Jobs.job_num FROM Jobs, Cut_Job Where (Cut_Job.job_num >=@job_num_start) and (Cut_Job.job_num<=@job_num_end) and (Jobs.job_num = Cut_Job.job_num) ) --find the entries that are in both tables and delete them from Jobs
+	DELETE FROM Cut_Job where (job_num >= @job_num_start) and (job_num<=@job_num_end)--delete them from Cut too.
 END
 GO
 
 
+EXEC query13 @job_num_start = 50, @job_num_end = 60; 
 
 GO
 
