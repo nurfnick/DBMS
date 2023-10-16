@@ -7,6 +7,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class project {
 
@@ -520,8 +522,35 @@ public class project {
                 	}}} catch (FileNotFoundException e) {
                 		System.out.println("File not found");
                 	}
-                break;
+                	break;
                 
+                case "16":
+                	System.out.println("Enter path for export file:");
+                	sc.nextLine();
+                	final String pathtofile2 = sc.nextLine();
+                    try {
+                        FileWriter myWriter = new FileWriter(pathtofile2);
+                        try (final Connection connection = DriverManager.getConnection(URL)){
+                        try (
+                                final Statement statement = connection.createStatement();
+                                final ResultSet resultSet = statement.executeQuery("SELECT * FROM Customer")){
+                        		
+                        	while (resultSet.next()) {
+                                myWriter.write(String.format("%s  %s  %s %n",
+                                    resultSet.getString(1),
+                                    resultSet.getString(2),
+                                    resultSet.getString(3)));
+                            }
+                        	
+                        }
+                        //myWriter.write("Files in Java might be tricky, but it is fun enough!");
+                        myWriter.close();
+                        System.out.println("Successfully wrote to the file.");}
+                      } catch (IOException e) {
+                        System.out.println("An error occurred.");
+                        e.printStackTrace();
+                      }
+                	break;
                 case "33":
                     System.out.println("Connecting to the database...");
                     // Get the database connection, create statement and execute it right away, as no user input need be collected
