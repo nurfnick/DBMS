@@ -311,7 +311,18 @@ GO
 GO  
 
 
+GO
 
+DROP PROCEDURE IF EXISTS query9 --get rid of the procedure if you built it before
+GO
+CREATE PROCEDURE query9 
+    @assembly_id INT
+
+AS
+BEGIN
+	Select * FROM Account WHERE type_acct_id = @assembly_id and type_acct = 'Assembly'
+END
+GO
 
 
 
