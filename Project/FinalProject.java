@@ -36,6 +36,8 @@ public class project {
     final static String QUERY_TEMPLATE_6 = "EXEC query6 @job_num = ?, @job_date_commenced = ?, @assembly_id = ?, @process_id = ?;";//call the transact in SQL server  
 
     final static String QUERY_TEMPLATE_7 = "EXEC query7 @job_num = ?, @job_date_completed = ?, @job_type = ?, @labor = ?, @machine_type =?, @time = ?, @material = ?, @color =?, @volume =?;";//call the transact in SQL server   
+
+    final static String QUERY_TEMPLATE_9 = "EXEC query9 @assembly_id =?;";//call the transact in SQL server       
     
     final static String QUERY_TEMPLATE_12 = "EXEC query12 @category =?;";//call the transact in SQL server   
  
@@ -54,14 +56,14 @@ public class project {
             "6) Enter a new job; \n" +
             "7) Complete a job; \n" +
             "8) Update costs; \n" +
-            "9) Print cost by assembly id; \n" +
+            "9) Print cost on assembly id; \n" +
             "10) Print labor time by department; \n" +
             "11) Print assembly details; \n" +
             "12) Print customers by category; \n" +
             "13) Delete cut jobs; \n" +
             "14) Change color; \n" +  
             "15) Import new customers; \n" +  
-            "16) Export customers; \n" +  
+            "16) Export customers by category; \n" +  
             "17) Exit!";
 
     public static void main(String[] args) throws SQLException {
@@ -406,6 +408,32 @@ public class project {
 
                     break;    
                     
+                    
+                case "9":
+                	System.out.println("Please enter an assembly id:");
+                    sc.nextLine();
+                    final int assembly_id3 = sc.nextInt(); // Read in the user input of performer ID
+                    // Get the database connection, create statement and execute it right away, as no user input need be collected
+                    try (final Connection connection = DriverManager.getConnection(URL)) {
+                        System.out.println("Dispatching the query...");
+                        try (
+                                final PreparedStatement statement = connection.prepareStatement(QUERY_TEMPLATE_9)) {
+                                // Populate the query template with the data collected from the user
+                                statement.setInt(1, assembly_id3);
+                                final ResultSet resultSet = statement.executeQuery();
+                                System.out.println(String.format("Costs of Assembly %s:",assembly_id3));
+                                
+
+                                // Unpack the tuples returned by the database and print them out to the user
+                                while (resultSet.next()) {
+                                    System.out.println(String.format("%s",
+                                        resultSet.getDouble(1)));
+                                }
+                        }
+                    }
+
+                    break;                    
+                    
                 case "12":
                 	System.out.println("Please enter category number:");
                     sc.nextLine();
@@ -517,7 +545,8 @@ public class project {
 
                                 System.out.println("Dispatching the query...");
                                 // Actually execute the populated query
-                                final int rows_inserted = statement.executeUpdate();               		
+                                final int rows_inserted = statement.executeUpdate(); 
+                                System.out.println(String.format("Done. %d row inserted.", rows_inserted));
                 		//System.out.println(scanfile.nextLine());
                 	}}} catch (FileNotFoundException e) {
                 		System.out.println("File not found");
