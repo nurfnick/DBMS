@@ -85,7 +85,7 @@ Cut\_Job( \underline{job\_num}, machine\_type, time, material, labor)
 
 \newpage
 \section{Storage}
-
+\subsection{Storage Structures}
 \begin{tabular}{|p{.75in}|p{.75in}|p{.75in}|p{.65in}|p{.75in}|p{1.75in}|}\hline
 Table Name & Query Number and Type & Search Key& Query Frequency& Selected File Organization & Justification\\ \hline\hline
 Customer & 1 Insertion & name & 30/Day & heap on name & At the moment adding lots of data and not accessing it directly often\\ \hline 
@@ -117,8 +117,8 @@ Cut\_Job & 13 Range Search & job\_num & 1/Month & Sequential Index on job\_num &
 
 Paint\_Job & 14 Random Search & job\_num &1/Week & Dynamic Hash function on job\_num & since we are accessing occasionally but adding lots of jobs, it would be nice to have quick access via a hash. \\ \hline
 \end{tabular}
-
-Info on Azure indexing can be found \href{https://learn.microsoft.com/en-us/sql/relational-databases/indexes/indexes?view=sql-server-ver16}{here}.  Implementing these was a challenge.  Azure uses B trees by default on the primary keys.  Since we knew this there were a few indexes that were unnecessary to create.  Most of the rest were created especially if there were two attributes that were being indexed together.  Sequential indexes (for range sort) were done by adding the ASC or DES tag to the attribute in question.  Each index was created and added to the SQL code creating the tables.
+\subsection{Storage Structures on Azure}
+Info on Azure indexing can be found \href{https://learn.microsoft.com/en-us/sql/relational-databases/indexes/indexes?view=sql-server-ver16}{here}.  Implementing these was a challenge.  Azure uses B trees by default on the primary keys.  This is great for random search but not so great for range searches.  Since we knew this there were a few indexes that were unnecessary to create.  Most of the rest were created especially if there were two attributes that were being indexed together.  Sequential indexes (for range sort) were done by adding the ASC or DES tag to the attribute in question.  Each index was created and added to the SQL code creating the tables necessary for indexing.
 
 \section{SQL and Azure}
 
