@@ -313,6 +313,27 @@ GO
 
 GO
 
+DROP PROCEDURE IF EXISTS query8 --get rid of the procedure if you built it before
+GO
+CREATE PROCEDURE query8 
+    @tran_num INT,
+	@sup_cost INT,
+	@job_num INT,
+	@process_id INT 
+AS
+BEGIN
+	INSERT INTO Transact VALUES (@tran_num,@sup_cost)
+	INSERT INTO Costs VALUES (@job_num, @tran_num, @process_id)
+	UPDATE Account SET costs = costs + @sup_cost Where type_acct = 'Process' and type_acct_id = @process_id 
+	UPDATE Account SET costs = costs + @sup_cost Where type_acct = 'Assembly' and type_acct_id = (SELECT assembly_id FROM Assign WHERE job_num = @job_num)
+	UPDATE Account SET costs = costs + @sup_cost Where type_acct = 'Department' and type_acct_id = (SELECT dept_num FROM Supervise WHERE process_id=@process_id)
+END
+GO
+
+--EXEC query8 @tran_num = 50, @sup_cost = 100, @job_num = 50, @process_id =1;
+
+GO
+
 DROP PROCEDURE IF EXISTS query9 --get rid of the procedure if you built it before
 GO
 CREATE PROCEDURE query9 

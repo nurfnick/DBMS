@@ -37,6 +37,8 @@ public class project {
 
     final static String QUERY_TEMPLATE_7 = "EXEC query7 @job_num = ?, @job_date_completed = ?, @job_type = ?, @labor = ?, @machine_type =?, @time = ?, @material = ?, @color =?, @volume =?;";//call the transact in SQL server   
 
+    final static String QUERY_TEMPLATE_8 = "EXEC query8 @tran_num =?, @sup_cost = ?, @job_num = ?, @process_id = ?;";//call the transact in SQL server
+    
     final static String QUERY_TEMPLATE_9 = "EXEC query9 @assembly_id =?;";//call the transact in SQL server       
     
     final static String QUERY_TEMPLATE_12 = "EXEC query12 @category =?;";//call the transact in SQL server   
@@ -407,7 +409,47 @@ public class project {
                     }
 
                     break;    
+ 
+                case "8": // Insert a new cost
+                    // Collect the cost data from the user
+                    System.out.println("Please enter transaction number:");
+                    sc.nextLine();
+                    final int tran_num = sc.nextInt(); // Read in the user input of performer ID
+
+                    System.out.println("Please enter the cost for this transaction:");
+                    // Preceding nextInt, nextFloar, etc. do not consume new line characters from the user input.
+                    // We call nextLine to consume that newline character, so that subsequent nextLine doesn't return nothing.
+                    sc.nextLine();
+                    final double sup_cost = sc.nextDouble(); // Read in date.
                     
+                    System.out.println("Please enter the job number:");
+                    final int job_num3 = sc.nextInt(); // Read in the user input assembly id
+                    
+                    System.out.println("Please enter process for this transaction:");
+                    final int process_id3 = sc.nextInt(); // Read in the user input of age
+
+                    System.out.println("Connecting to the database...");
+                    // Get a database connection and prepare a query statement
+                    try (final Connection connection = DriverManager.getConnection(URL)) {
+                        try (
+                            final PreparedStatement statement = connection.prepareStatement(QUERY_TEMPLATE_9)) {
+                            // Populate the query template with the data collected from the user
+                            statement.setInt(1, tran_num);
+                            statement.setDouble(2, sup_cost);
+                            statement.setInt(3, job_num3);
+                            statement.setInt(4, process_id3);
+
+
+                            System.out.println("Dispatching the query...");
+                            // Actually execute the populated query
+                            final int rows_inserted = statement.executeUpdate();
+                            System.out.println(String.format("Done. %d transaction completed.", rows_inserted));
+                        }
+                        catch (SQLException sqle) {
+                        	System.out.println("Could not complete transaction. " + sqle);                        }
+                    }
+
+                    break;                   
                     
                 case "9":
                 	System.out.println("Please enter an assembly id:");
