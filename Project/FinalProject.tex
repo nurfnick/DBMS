@@ -122,12 +122,25 @@ Info on Azure indexing can be found \href{https://learn.microsoft.com/en-us/sql/
 
 \section{SQL and Azure}
 
-I have included my entire SQL file here.
+I have included my SQL file that creates the tables and indexes.
 
-\VerbatimInput{FinalProject.sql}
+\VerbatimInput{Jacob_Nicholas_IP_Task4.sql}
 
-I will also include some screenshots of me utilizing SQL in Azure.  The enumeration follows the execution of each of the queries in the assignment.  I have used the naming convention in the Transact SQL as `query\#'. 
+I went ahead and added some data to each table so that I would be able to examine if the later queries were working correctly.  We see a few of these tables below.
 
+\includegraphics[width = \textwidth]{custTable.png}
+
+\includegraphics[width = \textwidth]{processTable.png}
+
+\includegraphics[width = \textwidth]{assTable.png}
+
+\includegraphics[width = \textwidth]{accTable.png}
+
+\section{SQL and Java}
+\subsection{SQL Transact}
+I put the transact calls in a new SQL file included below.
+
+\VerbatimInput{Jacob_Nicholas_IP_Task5a.sql}
 \begin{enumerate}
 \item 
 \includegraphics[width = \textwidth]{insertCust1.png}
@@ -161,16 +174,76 @@ I will also include some screenshots of me utilizing SQL in Azure.  The enumerat
 \includegraphics[width = \textwidth]{insertAcct1.png}
 
 \includegraphics[width = \textwidth]{insertAcct2.png}
-\end{enumerate}
-\section{SQL and Java}
-\subsection{SQL Transact}
-I put the transact calls in the same file that created the tables.  If I have time, I should split this up...
-\VerbatimInput{FinalProject.sql}
 
+\item %6
+
+\includegraphics[width = \textwidth]{insertJobs1.png}
+
+\includegraphics[width = \textwidth]{insertJobs2.png}
+
+
+\includegraphics[width = \textwidth]{insertJobs3.png}
+
+\includegraphics[width = \textwidth]{insertJobs4.png}
+
+\item %7
+
+\includegraphics[width = \textwidth]{updateJobs1.png}
+
+\includegraphics[width = \textwidth]{updateJobs2.png}
+
+\includegraphics[width = \textwidth]{updateJobs3.png}
+
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\includegraphics[width = \textwidth]{changepaint.png}
+
+\end{enumerate}
 \subsection{Java Implementation}
 \VerbatimInput{FinalProject.java}
 \includegraphics[width = \textwidth]{JavaSuccess.png}
 \section{Java Execution}
+\subsection{Query 1}
+\subsection{Query 2}
+\subsection{Query 3}
+\subsection{Query 4}
+\subsection{Query 5}
+\subsection{Query 6}
+\subsection{Query 7}
+\subsection{Query 8}
+\subsection{Query 9}
+\subsection{Query 10}
+\subsection{Query 11}
+\subsection{Query 12}
+\subsection{Query 13}
+\subsection{Query 14}
+
+\subsection{Query Import/Export}
+
+\includegraphics[width = \textwidth]{insert.png}
+
+Here is what is started with
+
+\VerbatimInput{simple1.txt}
+
+\includegraphics[width = \textwidth]{export.png}
+
+Here is the file it printed
+
+\VerbatimInput{simple.txt}
+
+\subsection{Errors}
+
+
+\subsection{Quitting}
+
+\includegraphics[width = \textwidth]{exit.png}
+
 \section{Web Database}
 \subsection{Source Code}
 {\bf Data Handler}
