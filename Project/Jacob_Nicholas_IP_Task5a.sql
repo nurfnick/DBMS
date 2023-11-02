@@ -3,12 +3,12 @@ DROP PROCEDURE IF EXISTS query1 --get rid of the procedure if you built it befor
 
 GO
 CREATE PROCEDURE query1 --this is the first.  Need three inputs
-	@name VARCHAR(64),
+	@name1 VARCHAR(64),
     @address VARCHAR(64),
     @category NUMERIC(2,0)
 AS
 BEGIN
-	INSERT INTO Customer VALUES (@name, @address, @category) --insert me now
+	INSERT INTO Customer VALUES (@name1, @address, @category) --insert me now
 END
 GO
 --EXEC query1 @name = 'Nick', @address = NULL, @category = 10
@@ -39,10 +39,13 @@ CREATE PROCEDURE query3 --this is the first.  Need three inputs
     @type_method VARCHAR(64)
 AS
 BEGIN
+    SET XACT_ABORT ON
+    BEGIN TRANSACTION
 	INSERT INTO Processes VALUES (@process_id, @process_data) --insert into process
 	IF @type = 'Fit' INSERT INTO Fit VALUES (@process_id, @type_type)
 	IF @type = 'Paint' INSERT INTO Paint VALUES (@process_id, @type_type, @type_method)
 	IF @type = 'Cut' INSERT INTO Cut VALUES(@process_id, @type_type, @type_method)
+    COMMIT TRANSACTION
 END
 GO
 --EXEC query3 1,'','Fit',NULL,NULL
@@ -54,13 +57,16 @@ CREATE PROCEDURE query4 --create assembly with all associated processes for cust
 	@assembly_id INT,
     @date_ordered DATE,
     @assembly_details VARCHAR(64),
-    @name VARCHAR(64),
+    @name1 VARCHAR(64),
     @process_ids VARCHAR(64)--take this as a string seperated by commas and we'll slice it up
 AS
 BEGIN
+    SET XACT_ABORT ON--this will demand all are run correctly.  It will undo anything if one fails.
+    BEGIN TRANSACTION
 	INSERT INTO Assemblies VALUES (@assembly_id, @date_ordered, @assembly_details) --insert into assemblies
-	INSERT INTO Orders VALUES (@name,@assembly_id) --record what customer made the order
+	INSERT INTO Orders VALUES (@name1,@assembly_id) --record what customer made the order 
 	INSERT INTO Manufacture SELECT *,@assembly_id FROM STRING_SPLIT(@process_ids,',')--record all the processes needed to complete this assembly
+    COMMIT TRANSACTION--got to run the transaction...
 END
 GO
 --EXEC query4 1,'10/01/23',NULL,'Nick','1,1,1'
@@ -76,7 +82,7 @@ CREATE PROCEDURE query5
 AS
 BEGIN
 	INSERT INTO Account VALUES (@acct_id,@type,@date_established,@num,0) --insert into account
-	--INSERT INTO Maintains VALUES (@acct_id,@type)--,@num) --pass this info into maintains table
+	--INSERT INTO Maintains VALUES (@acct_id,@type)--,@num) --pass this info into maintains table changed my shema and did not need this table.
 END
 GO
 --EXEC query5 1,'Process','10/10/20',1
@@ -95,8 +101,11 @@ CREATE PROCEDURE query6
 	@process_id INT
 AS
 BEGIN
+    SET XACT_ABORT ON--this will demand all are run correctly.  It will undo anything if one fails.
+    BEGIN TRANSACTION
 	INSERT INTO Jobs (job_num,job_date_commenced) VALUES (@job_num,@job_date_commenced) --insert into jobs
 	INSERT INTO Assign VALUES (@job_num,@assembly_id,@process_id) --pass this info to assign the job to an assembly and initial process
+    COMMIT TRANSACTION
 END
 
 GO
@@ -141,11 +150,14 @@ CREATE PROCEDURE query8
 	@process_id INT 
 AS
 BEGIN
+    SET XACT_ABORT ON--this will demand all are run correctly.  It will undo anything if one fails.
+    BEGIN TRANSACTION
 	INSERT INTO Transact VALUES (@tran_num,@sup_cost)
 	INSERT INTO Costs VALUES (@job_num, @tran_num, @process_id)
 	UPDATE Account SET costs = costs + @sup_cost Where type_acct = 'Process' and type_acct_id = @process_id 
 	UPDATE Account SET costs = costs + @sup_cost Where type_acct = 'Assembly' and type_acct_id = (SELECT assembly_id FROM Assign WHERE job_num = @job_num)
 	UPDATE Account SET costs = costs + @sup_cost Where type_acct = 'Department' and type_acct_id = (SELECT dept_num FROM Supervise WHERE process_id=@process_id)
+    COMMIT TRANSACTION--you have to commit your transaction
 END
 GO
 
@@ -160,9 +172,39 @@ CREATE PROCEDURE query9
 
 AS
 BEGIN
-	Select * FROM Account WHERE type_acct_id = @assembly_id and type_acct = 'Assembly'
+	Select costs FROM Account WHERE type_acct_id = @assembly_id and type_acct = 'Assembly'
 END
 GO
+
+GO
+DROP PROCEDURE IF EXISTS query10
+GO
+CREATE PROCEDURE query10
+    @date DATE,
+    @department VARCHAR(10)
+AS
+BEGIN
+    IF @department = 'Fit' SELECT sum(labor) as ThisDaysLabor FROM Fit_Job, Jobs WHERE Jobs.job_num = Fit_Job.job_num AND Jobs.job_date_completed = @date 
+    IF @department = 'Paint' SELECT sum(labor) as ThisDaysLabor FROM Paint_Job, Jobs WHERE Jobs.job_num = Paint_Job.job_num AND Jobs.job_date_completed = @date 
+    IF @department = 'Cut' SELECT sum(labor) as ThisDaysLabor FROM Cut_Job, Jobs WHERE Jobs.job_num = Cut_Job.job_num AND Jobs.job_date_completed = @date 
+END
+GO
+--EXEC query10 @date =?, @department = ?;
+
+GO
+DROP PROCEDURE IF EXISTS query11
+GO
+CREATE PROCEDURE query11
+    @assembly_id INT
+AS
+BEGIN
+    SELECT Manufacture.process_id, Supervise.dept_num FROM Manufacture, Supervise WHERE Manufacture.assembly_id = @assembly_id and Manufacture.process_id = Supervise.process_id
+END
+GO 
+
+
+
+
 
 
 
@@ -191,13 +233,13 @@ CREATE PROCEDURE query13
 
 AS
 BEGIN
-	Delete FROM Jobs Where job_num in (SELECT Jobs.job_num FROM Jobs, Cut_Job Where (Cut_Job.job_num >=@job_num_start) and (Cut_Job.job_num<=@job_num_end) and (Jobs.job_num = Cut_Job.job_num) ) --find the entries that are in both tables and delete them from Jobs
-	DELETE FROM Cut_Job where (job_num >= @job_num_start) and (job_num<=@job_num_end)--delete them from Cut too.
+	Delete FROM Jobs Where job_num in (SELECT Jobs.job_num FROM Jobs, Cut_Job Where (Cut_Job.job_num >=@job_num_start) and (Cut_Job.job_num<=@job_num_end) and (Jobs.job_num = Cut_Job.job_num))--find the entries that are in both tables and delete them from Jobs this delete will cascade and delete any fk references to these jobs and also delete them  This will remove it from the cut jobs table.
+	
 END
 GO
 
 
-EXEC query13 @job_num_start = 50, @job_num_end = 60; 
+--EXEC query13 @job_num_start = 50, @job_num_end = 60; 
 
 GO
 

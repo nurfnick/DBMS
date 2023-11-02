@@ -39,16 +39,16 @@ CONSTRAINT FK_processid FOREIGN KEY(process_id) REFERENCES Processes,
 CONSTRAINT FK_aid FOREIGN KEY(assembly_id) REFERENCES Assemblies
 );
 CREATE TABLE Customer(
-name VARCHAR(64) PRIMARY KEY,
+name1 VARCHAR(64) PRIMARY KEY,
 address VARCHAR(64),
 category NUMERIC(2,0) NOT NULL,
 CHECK(category>0 and category<11)
 );
 CREATE TABLE Orders (
-name VARCHAR(64),
+name1 VARCHAR(64),
 assembly_id INT,
-CONSTRAINT PK_orders PRIMARY KEY (name, assembly_id),
-CONSTRAINT FK_cname FOREIGN KEY(name) REFERENCES Customer,
+CONSTRAINT PK_orders PRIMARY KEY (name1, assembly_id),
+CONSTRAINT FK_cname FOREIGN KEY(name1) REFERENCES Customer,
 CONSTRAINT FK_aidOrders FOREIGN KEY(assembly_id) REFERENCES Assemblies
 );
 CREATE TABLE Department (
@@ -84,7 +84,7 @@ acct_id INT PRIMARY KEY,
 type_acct VARCHAR(10) check (type_acct in ('Process','Assembly','Department')),
 date_established DATE,
 type_acct_id INT, --I should be a FK to Process, Assembly or department but could not figure how to make keys conditional to value of type_acct
-costs INT
+costs INT DEFAULT 0
 );
 /*
 CREATE TABLE Maintains(
@@ -106,7 +106,7 @@ assembly_id INT,
 process_id INT,--this gets the job started but not all of them?
 CONSTRAINT PK_assign PRIMARY KEY(job_num,process_id,assembly_id),
 CONSTRAINT FK_assign_process FOREIGN KEY(process_id) REFERENCES Processes,
-CONSTRAINT FK_assign_job FOREIGN KEY(job_num) REFERENCES Jobs,
+CONSTRAINT FK_assign_job FOREIGN KEY(job_num) REFERENCES Jobs ON DELETE CASCADE,
 CONSTRAINT FK_assign_assembly FOREIGN KEY(assembly_id) REFERENCES Assemblies
 );
 CREATE TABLE Transact(
@@ -133,17 +133,17 @@ CONSTRAINT FK_fit_job FOREIGN KEY(job_num) REFERENCES Jobs
 CREATE TABLE Paint_Job(
 job_num INT PRIMARY KEY,
 color VARCHAR(10),
-volume NUMERIC(3,2),
+volume NUMERIC(4,2),
 labor NUMERIC(3,0),
 CONSTRAINT FK_paint_job FOREIGN KEY(job_num) REFERENCES Jobs
 );
 CREATE TABLE Cut_Job(
 job_num INT PRIMARY KEY,
-machine_type VARCHAR(10),
-time NUMERIC(2,2),
-material NUMERIC(2,2),
+machine_type VARCHAR(15),
+time NUMERIC(4,2),
+material NUMERIC(4,2),
 labor NUMERIC(3,0),
-CONSTRAINT FK_cut_job FOREIGN KEY(job_num) REFERENCES Jobs
+CONSTRAINT FK_cut_job FOREIGN KEY(job_num) REFERENCES Jobs ON DELETE CASCADE
 );
 go
 CREATE INDEX customer_name ON Customer(name)--query 1 insertion of customers
@@ -179,4 +179,93 @@ GO
 CREATE INDEX paintjob_index ON Paint_Job(job_num)--query 14
 GO
 
+INSERT INTO Processes 
+    (process_id, process_data)
+VALUES
+    (1,'Start the machine'),
+    (2,'Run the machine'),
+    (3, 'Did you reboot your machine'),
+    (4, 'Finish the assembly')
 
+INSERT INTO Assemblies
+    (assembly_id, date_ordered, assembly_details)
+VALUES
+    (1,'01/01/2000','Giant inflatables'),
+    (2, '05/11/2018', 'A kids toy')
+
+INSERT INTO Manufacture
+    (assembly_id, process_id)
+VALUES
+    (1,1),
+    (1,2),
+    (1,3),
+    (1,2),
+    (1,4),
+    (2,1),
+    (2,4)
+INSERT INTO Customer
+    (name1, address, category)
+VALUES
+    ('Nick', '701Kings', 10),
+    ('Gus', '701Kings', 10),
+    ('Elle', '123FakeStreet', 9)
+
+INSERT INTO Orders
+    (name1, assembly_id)
+VALUES
+    ('Nick', 1),
+    ('Gus',2),
+    ('Elle',2)
+
+INSERT INTO Department
+    (dept_num, dept_data)
+VALUES
+    (1, 'Geter Done'),
+    (2, 'Machinists'),
+    (3, 'Finishing Up')
+
+INSERT INTO Supervise
+    (dept_num,process_id)
+VALUES
+    (1,1),
+    (1,3),
+    (3,4),
+    (2,2)
+
+INSERT INTO Account
+    (acct_id, type_acct, date_established, type_acct_id)
+VALUES
+    (1,'Process', '10/27/2023',1),
+    (2,'Process', '10/27/2023',2),
+    (3,'Process', '10/27/2023',3),
+    (4,'Process', '10/27/2023',4),
+    (5,'Assembly', '10/27/2023',1),
+    (6,'Assembly', '10/27/2023',2),
+    (7,'Department', '10/27/2023',1),
+    (8,'Department', '10/27/2023',2),
+    (9,'Department', '10/27/2023',3)
+
+INSERT INTO Jobs
+    (job_num, job_date_commenced, job_date_completed)
+VALUES
+    (1,'10/27/2023',NULL),
+    (2,'07/22/2020',NULL),
+    (3,'5/11/2018','7/5/2023')
+
+INSERT INTO Assign
+    (job_num, assembly_id, process_id)
+VALUES
+    (1,2,1)
+
+INSERT INTO Cut_Job
+    (job_num,machine_type,time,material,labor)
+VALUES
+    (1,'Big Machine',10,3.75,12),
+    (2,'Small Machine',10,2.75,24)
+
+Insert INTO Fit_Job
+    (job_num, labor)
+VALUES
+    (1,10),
+    (2,20),
+    (3,20)
