@@ -134,19 +134,19 @@ CONSTRAINT FK_cost_process FOREIGN KEY(process_id) REFERENCES Processes,
 --CONSTRAINT FK_cost_department FOREIGN KEY(dept_num) REFERENCES Department,
 --CONSTRAINT FK_cost_assembly FOREIGN KEY(assembly_id) REFERENCES Assemblies,
 CONSTRAINT FK_cost_transact FOREIGN KEY(tran_num) REFERENCES Transact,
-CONSTRAINT FK_cost_job FOREIGN KEY(job_num) REFERENCES Jobs
+CONSTRAINT FK_cost_job FOREIGN KEY(job_num) REFERENCES Jobs ON DELETE CASCADE
 );
 CREATE TABLE Fit_Job(
 job_num INT PRIMARY KEY,
 labor NUMERIC(3,0),
-CONSTRAINT FK_fit_job FOREIGN KEY(job_num) REFERENCES Jobs
+CONSTRAINT FK_fit_job FOREIGN KEY(job_num) REFERENCES Jobs ON DELETE CASCADE
 );
 CREATE TABLE Paint_Job(
 job_num INT PRIMARY KEY,
 color VARCHAR(10),
 volume NUMERIC(4,2),
 labor NUMERIC(3,0),
-CONSTRAINT FK_paint_job FOREIGN KEY(job_num) REFERENCES Jobs
+CONSTRAINT FK_paint_job FOREIGN KEY(job_num) REFERENCES Jobs ON DELETE CASCADE
 );
 CREATE TABLE Cut_Job(
 job_num INT PRIMARY KEY,
@@ -282,6 +282,11 @@ INSERT INTO Cut_Job
 VALUES
     (1,'Big Machine',10,3.75,12),
     (2,'Small Machine',10,2.75,24)
+
+Insert INTO Paint_Job
+    (job_num,color,volume,labor)
+VALUES
+    (3,'Green',10.5,12)
 
 Insert INTO Fit_Job
     (job_num, labor)

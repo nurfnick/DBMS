@@ -331,8 +331,7 @@ public class project {
 
                             System.out.println("Dispatching the query...");
                             // Actually execute the populated query
-                            boolean rows_inserted = statement.execute();
-                            while(rows_inserted||statement.getUpdateCount()!=-1) {rows_inserted = statement.getMoreResults();}
+                            final int rows_inserted = statement.executeUpdate();
                             System.out.println(String.format("Done. %d rows inserted.", rows_inserted));
                         }
                         catch (SQLException sqle) {
@@ -370,6 +369,7 @@ public class project {
                     	labor = sc.nextDouble();                    	
                     	System.out.println("Please enter the paint color:");
                     	color = sc.nextLine();
+                    	sc.nextLine();
                     	System.out.println("Please enter the paint volume:");
                     	volume = sc.nextDouble();
 
@@ -379,6 +379,7 @@ public class project {
                     	labor = sc.nextDouble();                    	
                     	System.out.println("Please enter the machine type:");
                     	machine_type = sc.nextLine();
+                    	sc.nextLine();
                     	System.out.println("Please enter the time:");
                     	time = sc.nextDouble();
                     	System.out.println("Please enter the material:");

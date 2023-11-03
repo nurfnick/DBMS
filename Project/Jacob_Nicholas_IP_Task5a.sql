@@ -124,10 +124,10 @@ CREATE PROCEDURE query7
     @job_type VARCHAR(10),
 	@labor NUMERIC(3,0),
 	@machine_type VARCHAR(10),
-	@time NUMERIC(2,2),
-	@material NUMERIC(2,2),
+	@time NUMERIC(4,2),
+	@material NUMERIC(4,2),
 	@color VARCHAR(10),
-	@volume NUMERIC(3,2)
+	@volume NUMERIC(4,2)
 
 AS
 BEGIN
