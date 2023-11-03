@@ -83,7 +83,18 @@ CREATE TABLE Account(
 acct_id INT PRIMARY KEY,
 type_acct VARCHAR(10) check (type_acct in ('Process','Assembly','Department')),
 date_established DATE,
-type_acct_id INT, --I should be a FK to Process, Assembly or department but could not figure how to make keys conditional to value of type_acct
+--type_acct_id INT, --I should be a FK to Process, Assembly or department but could not figure how to make keys conditional to value of type_acct
+process_id INT NULL ,
+assembly_id INT NULL,
+department_id INT NULL,
+CONSTRAINT FK_acct_process FOREIGN KEY(process_id) REFERENCES Processes,
+CONSTRAINT FK_acct_assembly FOREIGN KEY(assembly_id) REFERENCES Assemblies,
+CONSTRAINT FK_acct_department FOREIGN KEY(department_id) REFERENCES Department,
+CONSTRAINT CK_acct_type CHECK (
+      CASE WHEN process_id IS NULL THEN 0 ELSE 1 END +
+      CASE WHEN assembly_id  IS NULL THEN 0 ELSE 1 END +
+      CASE WHEN department_id  IS NULL THEN 0 ELSE 1 END = 1
+    ),
 costs INT DEFAULT 0
 );
 /*
@@ -146,7 +157,7 @@ labor NUMERIC(3,0),
 CONSTRAINT FK_cut_job FOREIGN KEY(job_num) REFERENCES Jobs ON DELETE CASCADE
 );
 go
-CREATE INDEX customer_name ON Customer(name)--query 1 insertion of customers
+CREATE INDEX customer_name ON Customer(name1)--query 1 insertion of customers
 GO
 CREATE INDEX dept_num ON Department(dept_num ASC) --query 2 insert of departments
 GO
@@ -157,22 +168,23 @@ CREATE INDEX process_fit ON Fit(process_id ASC)
 GO
 CREATE INDEX supervies ON Supervise(process_id, dept_num) --query 3 getting the supervise table indexed
 GO
-CREATE INDEX orders_index ON Orders(name, assembly_id) --query 4 keeping the name and assembly_id together
+CREATE INDEX orders_index ON Orders(name1, assembly_id) --query 4 keeping the name and assembly_id together
 
 CREATE INDEX Manufacture_index ON Manufacture(assembly_id)--query4 
 GO
-CREATE INDEX account_index ON Account(type_acct ASC, type_acct_id) --query5 this will be accessed a bunch to join other tables. 
+CREATE INDEX account_index ON Account(type_acct ASC, process_id,department_id,assembly_id) --query5 this will be accessed a bunch to join other tables. 
 --No need to create 6 and 7 as B tree is created on Primary Key automatically
 GO
 CREATE INDEX transaction_index ON Transact(tran_num)
 CREATE INDEX cost_index ON Costs(tran_num, process_id)--query8 
 GO
-CREATE INDEX account_assembly ON Account(type_acct, type_acct_id)--query9
+CREATE INDEX account_assembly ON Account(type_acct, assembly_id)--query9
 GO 
 CREATE INDEX job_date_index ON Jobs(job_date_commenced ASC, job_date_completed ASC)--query10 make sure to order them for quicker discovery
 GO
---CREATE INDEX manufacture_index ON Manufacture(assembly_id ASC)--query11
-CREATE INDEX customer_index ON Customer(name ASC, category)--query 12.  Joining the name and category and keeping name in order.
+--CREATE INDEX manufacture_index ON Manufacture(assembly_id ASC)--query11 duplicate to query 4
+GO
+CREATE INDEX customer_index ON Customer(name1 ASC, category)--query 12.  Joining the name and category and keeping name in order.
 GO
 CREATE INDEX cutjob_index ON Cut_Job(job_num)--query 13
 GO
@@ -233,14 +245,22 @@ VALUES
     (2,2)
 
 INSERT INTO Account
-    (acct_id, type_acct, date_established, type_acct_id)
+    (acct_id, type_acct, date_established, process_id)
 VALUES
     (1,'Process', '10/27/2023',1),
     (2,'Process', '10/27/2023',2),
     (3,'Process', '10/27/2023',3),
-    (4,'Process', '10/27/2023',4),
+    (4,'Process', '10/27/2023',4)
+
+INSERT INTO Account
+    (acct_id, type_acct, date_established, assembly_id)
+VALUES    
     (5,'Assembly', '10/27/2023',1),
-    (6,'Assembly', '10/27/2023',2),
+    (6,'Assembly', '10/27/2023',2)
+
+INSERT INTO Account
+    (acct_id, type_acct, date_established, department_id)
+VALUES
     (7,'Department', '10/27/2023',1),
     (8,'Department', '10/27/2023',2),
     (9,'Department', '10/27/2023',3)

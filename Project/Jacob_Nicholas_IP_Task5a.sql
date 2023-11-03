@@ -81,8 +81,11 @@ CREATE PROCEDURE query5
 	@num INT
 AS
 BEGIN
-	INSERT INTO Account VALUES (@acct_id,@type,@date_established,@num,0) --insert into account
-	--INSERT INTO Maintains VALUES (@acct_id,@type)--,@num) --pass this info into maintains table changed my shema and did not need this table.
+    IF @type = 'Process' INSERT INTO Account (acct_id, type_acct, date_established, process_id) VALUES (@acct_id,@type,@date_established,@num) --insert into account
+	IF @type = 'Assembly' INSERT INTO Account (acct_id, type_acct, date_established, assembly_id) VALUES (@acct_id,@type,@date_established,@num) --insert into account
+	IF @type = 'Department' INSERT INTO Account (acct_id, type_acct, date_established, department_id) VALUES (@acct_id,@type,@date_established,@num) --insert into account
+	
+    --INSERT INTO Maintains VALUES (@acct_id,@type)--,@num) --pass this info into maintains table changed my shema and did not need this table.
 END
 GO
 --EXEC query5 1,'Process','10/10/20',1
@@ -154,9 +157,9 @@ BEGIN
     BEGIN TRANSACTION
 	INSERT INTO Transact VALUES (@tran_num,@sup_cost)
 	INSERT INTO Costs VALUES (@job_num, @tran_num, @process_id)
-	UPDATE Account SET costs = costs + @sup_cost Where type_acct = 'Process' and type_acct_id = @process_id 
-	UPDATE Account SET costs = costs + @sup_cost Where type_acct = 'Assembly' and type_acct_id = (SELECT assembly_id FROM Assign WHERE job_num = @job_num)
-	UPDATE Account SET costs = costs + @sup_cost Where type_acct = 'Department' and type_acct_id = (SELECT dept_num FROM Supervise WHERE process_id=@process_id)
+	UPDATE Account SET costs = costs + @sup_cost Where type_acct = 'Process' and process_id = @process_id 
+	UPDATE Account SET costs = costs + @sup_cost Where type_acct = 'Assembly' and assembly_id = (SELECT assembly_id FROM Assign WHERE job_num = @job_num)
+	UPDATE Account SET costs = costs + @sup_cost Where type_acct = 'Department' and department_id = (SELECT dept_num FROM Supervise WHERE process_id=@process_id)
     COMMIT TRANSACTION--you have to commit your transaction
 END
 GO
@@ -172,7 +175,7 @@ CREATE PROCEDURE query9
 
 AS
 BEGIN
-	Select costs FROM Account WHERE type_acct_id = @assembly_id and type_acct = 'Assembly'
+	Select costs FROM Account WHERE assembly_id = @assembly_id and type_acct = 'Assembly'
 END
 GO
 
@@ -217,7 +220,7 @@ CREATE PROCEDURE query12
 
 AS
 BEGIN
-	Select name FROM Customer WHERE category = @category ORDER BY name ASC
+	Select name1 FROM Customer WHERE category = @category ORDER BY name1 ASC
 END
 GO
 
