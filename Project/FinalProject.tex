@@ -71,11 +71,11 @@ Account(\underline{acct\_id}, type, type\_id, date\_established, costs)
 
 Job(\underline{job\_num}, job\_date\_commenced, job\_completed)
 
-Assign(\underline{job\_num}, \underline{assembly\_id},\underline{process\_id})
+Assign(\underline{job\_num}, assembly\_id,process\_id)
 
 Transaction(\underline{tran\_num}, sup\_cost)
 
-Costs(\underline{job\_num}, \underline{acct\_id},\underline{process\_id}, \underline{assembly\_id}, \underline{tran\_num},\underline{dept\_num})
+Costs(\underline{job\_num},\underline{process\_id},  \underline{tran\_num})
 
 Fit\_Job( \underline{job\_num}, labor)
 
@@ -118,11 +118,11 @@ Cut\_Job & 13 Range Search & job\_num & 1/Month & Sequential Index on job\_num &
 Paint\_Job & 14 Random Search & job\_num &1/Week & Dynamic Hash function on job\_num & since we are accessing occasionally but adding lots of jobs, it would be nice to have quick access via a hash. \\ \hline
 \end{tabular}
 \subsection{Storage Structures on Azure}
-Info on Azure indexing can be found \href{https://learn.microsoft.com/en-us/sql/relational-databases/indexes/indexes?view=sql-server-ver16}{here}.  Implementing these was a challenge.  Azure uses B trees by default on the primary keys.  This is great for random search but not so great for range searches.  Since we knew this there were a few indexes that were unnecessary to create.  Most of the rest were created especially if there were two attributes that were being indexed together.  Sequential indexes (for range sort) were done by adding the ASC or DES tag to the attribute in question.  Each index was created and added to the SQL code creating the tables necessary for indexing.
+Info on Azure indexing can be found \href{https://learn.microsoft.com/en-us/sql/relational-databases/indexes/indexes?view=sql-server-ver16}{here}.  Implementing these was a challenge.  Azure uses B trees by default on the primary keys.  This is great for random search but not so great for range searches.  Since we knew this there were a few indexes that were unnecessary to create.  Most of the rest were created especially if there were two attributes that were being indexed together.  Sequential indexes (for range sort) were done by adding the ASC or DES tag to the attribute in question.  Each index was created and added to the SQL code creating the tables necessary for indexing.  The language in the MS documentation is not the most user friendly.  I find this very often when dealing with their products.  I wonder if this is a way to sell the SAS products that they now offer.  Open source is my jam.  Hope you like \LaTeX\ assignments I created.
 
 \section{SQL and Azure}
 
-I have included my SQL file that creates the tables and indexes.
+I have included my SQL file that creates the tables and indexes.  Some comments appear to run off the right side of the paper, the full document has been included for completeness.
 
 \VerbatimInput{Jacob_Nicholas_IP_Task4.sql}
 
@@ -149,10 +149,14 @@ I put the transact calls in a new SQL file included below.
 
 \includegraphics[width = \textwidth]{insertCust3.png}
 
+
 \item
 \includegraphics[width = \textwidth]{insertDept1.png}
 
 \includegraphics[width = \textwidth]{insertDept2.png}
+
+
+
 
 \item
 \includegraphics[width = \textwidth]{insertProcess1.png}
@@ -160,6 +164,7 @@ I put the transact calls in a new SQL file included below.
 \includegraphics[width = \textwidth]{insertProcess2.png}
 
 \includegraphics[width = \textwidth]{insertProcess3.png}
+
 
 \item
 \includegraphics[width = \textwidth]{insertAssembly1.png}
@@ -205,6 +210,10 @@ I put the transact calls in a new SQL file included below.
 \includegraphics[width = \textwidth]{transact3.png}
 
 \includegraphics[width = \textwidth]{transact4.png}
+
+\includegraphics[width = \textwidth]{transact5.png} 
+
+I made some changes with the `Account' table to have the Foreign Key actually work across the three tables.  Added this to reflect that change.
 \item
 
 
@@ -261,6 +270,11 @@ I put the transact calls in a new SQL file included below.
 
 \includegraphics[width = \textwidth]{cust5.png}
 
+
+\includegraphics[width = \textwidth]{insertCust4.png}
+
+\includegraphics[width = \textwidth]{insertCust5.png}
+
 \subsection{Query 2}
 \includegraphics[width = \textwidth]{dept1.png}
 
@@ -272,6 +286,12 @@ I put the transact calls in a new SQL file included below.
 
 \includegraphics[width = \textwidth]{dept5.png}
 
+\includegraphics[width = \textwidth]{insertDept3.png}
+
+\includegraphics[width = \textwidth]{insertDept4.png}
+
+\includegraphics[width = \textwidth]{insertDept5.png}
+
 \subsection{Query 3}
 \includegraphics[width = \textwidth]{process1.png}
 
@@ -282,6 +302,13 @@ I put the transact calls in a new SQL file included below.
 \includegraphics[width = \textwidth]{process4.png}
 
 \includegraphics[width = \textwidth]{process5.png}
+
+
+\includegraphics[width = \textwidth]{insertProcess4.png}
+
+\includegraphics[width = \textwidth]{insertProcess5.png}
+
+\includegraphics[width = \textwidth]{insertProcess6.png}
 \subsection{Query 4}%not happy with this one.  If customer doesn't exist it is doing all the inserts anyway except the orders one...
 
 \includegraphics[width = \textwidth]{ass1.png}
