@@ -1,0 +1,128 @@
+\documentclass[11pt]{article}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{ wasysym }
+
+\newtheorem{example}{Example}
+
+
+\author{}
+\title{}
+
+\begin{document}
+%\maketitle
+{\Large
+%Change Document name to: Graded Homework 1\_Jacob\_Nicholas
+\noindent NAME:  Nicholas Jacob\\ 
+STUDENT ID: \# 113578513\\
+GRADED HOMEWORK NUMBER: 4\\
+COURSE: CS/DSA 4513 DATABASE MANAGEMENT\\ 
+SECTION: ONLINE\\SEMESTER: FALL 2023\\
+INSTRUCTOR:  DR. LE GRUENWALD\\
+ SCORE:}
+
+\newpage
+\begin{enumerate} 
+\item 
+\begin{enumerate}
+\item Find the name of each employee who works for ``Big Bank".
+\[
+\Pi_{person\_name}(\sigma_{company\_name = ``Big Bank"}(works))
+\]
+\item Find the name and city of each employee who works for ``Big Bank".
+\[
+\Pi_{person\_name, city}(\sigma_{company\_name = ``Big Bank"}(employee \bowtie_{%employee.person\_name = works.
+person\_name} works))
+\]
+\item Find the name, street address, and city of each employee who works for ``Big Bank" and earns more than \$10 000.
+\begin{eqnarray*}
+\Pi_{person\_name,street, city}(
+\sigma_{(salary > 10 000) \land (company\_name = ``Big Bank")}(\\employee \bowtie_{%employee.person\_name = works.
+person\_name} works)))
+\end{eqnarray*}
+\item Find the name of each employee who lives in the same city as the company for which they work.
+\begin{eqnarray*}
+\Pi_{person\_name}
+(
+\sigma_{employee.city = company.city}
+((
+employee \bowtie_{%employee.person\_name = works.
+person\_name} works)\\
+\bowtie_{company\_name} company)
+)
+\end{eqnarray*}
+
+\end{enumerate}
+\item Given the relational schema Employee(id, name, classid,gender, manager,salary) and the set of Functional Dependencies 
+
+FD = 
+
+\{(classid,id,gender)$\rightarrow$ (salary, manager),
+
+name $\rightarrow$ (age,id), 
+
+id$\rightarrow$ name, 
+
+manager $\rightarrow$ (gender, age, classid,id)\}
+\begin{enumerate}
+\item To find all candidate keys, we will first examine the closure $FD^+$.  Using decomposition, we see that 
+
+manager $\rightarrow$ gender,
+
+manager $\rightarrow$ age,
+
+manager $\rightarrow$ classid,
+
+manager $\rightarrow$ id,
+
+Then we grab the penultimate and the last here and use transitivity so,
+
+manager $\rightarrow$ name.
+
+To show manager is a candidate key, I still need salary.  We see from decomposition that 
+
+(classid,id,gender)$\rightarrow$ salary, and
+
+manager $\rightarrow$ (gender, classid,id) so transitivity gives us
+
+manager $\rightarrow$ salary.  Thus manager is a superkey.  You cannot simplify manager so it is also a candidate key.
+
+The other superkey is (classid, id, gender).  We see right away that its closure contains salary and manager (decomposition rule).  With this addition, we can also add age (decomposition again).  We also get id trivially (reflexivity) so name will be included.  Thus we have shown that all elements belong to the superkey (classid, id, gender).  We note that this set is minimal.  Closure on any of the individual or combination of elements will not give you manager.  Thus (classid, id, gender) is a candidate key.
+
+We do not see any other keys.  id and name had the best shot but both do not imply manager so you are stuck.
+\item Normal Forms
+\begin{enumerate}
+\item This relational schema is in the first normal form since all entries are atomic.
+\item To check for second normal form, we would need for any non-prime attribute to be fully dependent on the candidate key.  We see that name is partially dependent on the candidate key (classid, id, gender) since id $\rightarrow$ name.
+\item We are not third normal form either.  name $\rightarrow$ age is in the closure (by decomposition).  But age is not in any of the candidate keys so not third normal form as age is not a prime attribute.
+\item Since we were not third normal form, we will not be BCNF.  We can see this by definition too.  name $\rightarrow$ age is again a issue.  name is not a superkey. 
+\end{enumerate}
+\item Since I was 1NF and 2NF but not 3NF, I will decompose with the desired result being 3NF.  We first take each of the canonical relations and build a schema from each.
+
+$R_1$(classid, id,gender, salary, manager)
+
+$R_2$(name, age, id)
+
+$R_3$(id, name)
+
+$R_4$(manager, gender, age, classid, id)
+
+We see that $R_1$ and $R_4$ contain a candidate key (both actually) So we proceed to the next step of eliminating redundant relations.
+
+$R_1$(classid, id,gender, salary, manager)
+
+$R_2$(name, age, id)
+
+
+\end{enumerate}
+\end{enumerate}
+
+
+
+
+
+
+\end{document}
