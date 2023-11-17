@@ -100,7 +100,7 @@ We do not see any other keys.  id and name had the best shot but both do not imp
 \item We are not third normal form either.  name $\rightarrow$ age is in the closure (by decomposition).  But age is not in any of the candidate keys so not third normal form as age is not a prime attribute.
 \item Since we were not third normal form, we will not be BCNF.  We can see this by definition too.  name $\rightarrow$ age is again a issue.  name is not a superkey. 
 \end{enumerate}
-\item Since I was 1NF and 2NF but not 3NF, I will decompose with the desired result being 3NF.  We first take each of the canonical relations and build a schema from each.
+\item Since I was 1NF and 2NF but not 3NF, I will decompose with the desired result being 3NF.  We first take each of the relations and build a schema from each. 
 
 $R_1$(classid, id,gender, salary, manager)
 
@@ -108,15 +108,41 @@ $R_2$(name, age, id)
 
 $R_3$(id, name)
 
-$R_4$(manager, gender, age, classid, id)
+$R_4$(manager, age, classid, id,gender )
 
-We see that $R_1$ and $R_4$ contain a candidate key (both actually) So we proceed to the next step of eliminating redundant relations.
+
+We see that $R_1$, $R_4$ contain a candidate key. So we proceed to the next step of eliminating redundant relations.
 
 $R_1$(classid, id,gender, salary, manager)
 
 $R_2$(name, age, id)
 
 
+I think I have removed all the redundant sets, so now it is time to identify the functional dependencies on each.  The candidate key for $R_1$ is (classid, id, gender).  For $R_2$ it is name.  The functional dependencies would be (classid, id,gender) $\rightarrow$ (salary, manager) and manager $\rightarrow$ (gender, age, classid,id) on $R_1$. name $\rightarrow$ (age,id) and id $\rightarrow$ name on $R_2$.  (name, id) is a superkey on $R_2$ with name being a candidate key and (classid,id,gender, manager) is a superkey with (classid,id,gender) or manager being a candidate key.
+
+
+\item This is a lossless join.  As long as I did it correct, the 3NF decomposition is supposed to be lossless but we'll examine the details.  We need to show that the intersection of all the sets create a functional dependancy that was in the closure of the original.  Start with $R_1$.  We intersect that with $R_2$ and see that the element id survives.  We note that id $\rightarrow$ (name,age,id) so this abides the lossless requirements $R_1\cap R_2 \rightarrow R_1$.
+
+\item This is a dependency preforming join.  Again the 3NF decomposition is supposed to be dependency preserving.  I haven't done it correctly because I lost manager $\rightarrow$ age.
+
+
+Try again...
+
+\item I think the decomposition should be 
+
+$R_1$(CIGS)
+
+$R_2$(CIGM)
+
+$R_3$(NA)
+
+$R_4$(NI)
+
+$R_5$(MA)
+
+then superkeys are cig, cigm, n, ni, m.  Dependencies preserved are cig$\rightarrow$ s,cig$\leftrightarrow$ m, n$\rightarrow$a, n$\leftrightarrow$i, m$\rightarrow$ a.
+
+\item I am having trouble showing the lossless join.  I think I join 1 and 2.  Join that with 5.  Then join up 3 and 4 (all of these are lossless) then join together.  This is called the chase (https://stackoverflow.com/questions/21560069/lossless-join-decomposition-more-than-two-relations)
 \end{enumerate}
 \end{enumerate}
 
