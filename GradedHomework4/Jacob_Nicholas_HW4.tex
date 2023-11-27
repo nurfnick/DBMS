@@ -96,7 +96,7 @@ We do not see any other keys.  id and name had the best shot but both do not imp
 \item Normal Forms
 \begin{enumerate}
 \item This relational schema is in the first normal form since all entries are atomic.
-\item To check for second normal form, we would need for any non-prime attribute to be fully dependent on the candidate key.  We see that name is partially dependent on the candidate key (classid, id, gender) since id $\rightarrow$ name.
+\item To check for second normal form, we would need for any non-prime attribute to be fully dependent on the candidate key.  We see that name is partially dependent on the candidate key (classid, id, gender) since id $\rightarrow$ name.  So not 2nd normal form.
 \item We are not third normal form either.  name $\rightarrow$ age is in the closure (by decomposition).  But age is not in any of the candidate keys so not third normal form as age is not a prime attribute.
 \item Since we were not third normal form, we will not be BCNF.  We can see this by definition too.  name $\rightarrow$ age is again a issue.  name is not a superkey. 
 \end{enumerate}
@@ -128,7 +128,9 @@ We do not see any other keys.  id and name had the best shot but both do not imp
 %
 %Try again...
 
-\item I think the decomposition should be based on the canonical functional dependencies with all subsets removed.
+\item What follows is the description for decomposing to achieve 3NF.  I missed that I was not 2NF when I attempted this.  I leave it here because I believe this work is good and the result will give 2NF.  Also the text didn't really go into how to make something 2NF so I did 3NF.  
+
+I think the decomposition should be based on the canonical functional dependencies with all subsets removed.
 
 $R_1$(CIGS)
 
@@ -141,6 +143,8 @@ $R_4$(NI)
 $R_5$(MA)
 
 then superkeys are (cig), (cig)m, n, (n)(i), m.  Dependencies preserved are cig$\rightarrow$ s,cig$\leftrightarrow$ m, n$\rightarrow$a, n$\leftrightarrow$i, m$\rightarrow$ a.  The only issue we have to check to make sure still in 3NF is the $R_4$.  The issue there is it has both functional dependencies n$\leftrightarrow$i.  We note that since i is a superkey, we are okay for 3NF.
+
+I will also show that this decomposition is 2NF.  We see that all non-prime attributes in each of the tables are fully dependent on the candidate keys.  The issue with id implying name is dealt with in it's own table.
 
 \item To show that this is a lossless join is a bit tricky.  In part that neither the book nor videos discussed what to do in a non-binary case.  I see in the literature (and on the \href{https://stackoverflow.com/questions/21560069/lossless-join-decomposition-more-than-two-relations}{stackexchange}) this is called `the chase'.  I'll try to apply the chase here.  Joining $R_1$ and $R_2$ is natural.  The intersection of those two sets is CIG which was a superkey for both of those sets.  I join $R_{12}$ with $R_5$.  Again this is lossless as the intersection is M and that was a superkey for $R_5$.  Next I take $R_{125}$ and intersect wtih $R_4$.  Intersection there is I and I is a superkey for $R_4$.  Lastly join this mega set with $R_3$.  Intersection is NA.  Since it contains N and N is a super key for $R_3$ we have chased all sets back together and have lost none of the information.
 
@@ -158,67 +162,77 @@ How are functional dependencies preserved in database applications
 ChatGPT
 
 Functional dependencies are important in database design to ensure data integrity and minimize redundancy. Functional dependencies describe the relationships between attributes in a relational database. When you perform various operations in a database application, it's crucial to preserve these dependencies to maintain the consistency and accuracy of the data. Here are some ways in which functional dependencies are preserved in database applications:
-
-    Normalization:
+\begin{itemize}
+\item    Normalization:
         The primary method for preserving functional dependencies is through the normalization process. Normalization involves organizing the database schema to reduce redundancy and dependency issues.
         The normalization process, which includes decomposing tables into smaller, related tables, helps in preserving functional dependencies and ensures that data is stored in a way that minimizes update anomalies.
 
-    Foreign Key Constraints:
+ \item   Foreign Key Constraints:
         Foreign keys are used to establish relationships between tables in a relational database. By defining foreign key constraints, you enforce referential integrity between tables.
         Foreign keys help preserve functional dependencies by ensuring that values in a column of one table match the values in the referenced column of another table. This maintains the relationships between tables and prevents inconsistent or orphaned data.
 
-    Transaction Management:
+ \item   Transaction Management:
         Transactions play a crucial role in maintaining consistency and preserving functional dependencies. A transaction is a sequence of one or more SQL statements that are executed as a single unit of work.
         Transactions help ensure that changes to the database, such as inserts, updates, or deletes, are atomic and either fully completed or fully rolled back. This prevents partial updates that could violate functional dependencies.
 
-    Database Constraints:
+\item    Database Constraints:
         In addition to foreign key constraints, other database constraints such as unique constraints and check constraints help preserve functional dependencies.
         Unique constraints ensure that no two rows in a table have the same values in specified columns, preserving functional dependencies related to uniqueness.
         Check constraints allow you to define conditions that must be met for the data to be valid, helping to enforce functional dependencies.
 
-    Application Logic:
+\item    Application Logic:
         The logic implemented in the database application itself can play a role in preserving functional dependencies. Application developers need to be aware of the underlying database schema and design their application logic to adhere to the defined functional dependencies.
 
-    Data Validation:
+\item    Data Validation:
         Proper data validation at the application level ensures that only valid and consistent data is sent to the database. This helps in preserving functional dependencies by preventing the insertion of data that could violate those dependencies.
-
+\end{itemize}
 By combining these methods, database designers and application developers can work together to create a system that preserves functional dependencies and maintains data integrity throughout the application's lifecycle.
-User
+
+Me
+
 How can functional dependencies be used with entity relationship models
+
 ChatGPT
 
 Functional dependencies play a crucial role in database design, including the development of entity-relationship models. In entity-relationship modeling, functional dependencies help define the relationships between entities and attributes. Here's how functional dependencies can be used in conjunction with entity-relationship models:
 
-    Identifying Functional Dependencies:
+\begin{itemize}
+\item    Identifying Functional Dependencies:
         Before creating an entity-relationship model, it's essential to identify the functional dependencies that exist in the real-world scenario being modeled. This involves understanding the relationships between attributes within entities.
 
-    Entity-Relationship Diagrams (ERD):
+\item    Entity-Relationship Diagrams (ERD):
         In entity-relationship modeling, an ERD is a graphical representation of the entities, attributes, and relationships in a database. Functional dependencies influence the structure and connections within the ERD.
         Attributes within entities represent properties or characteristics, and understanding their functional dependencies helps in organizing them appropriately.
 
-    Normalization:
+\item    Normalization:
         Functional dependencies are closely related to normalization, a process used to organize data in a relational database to eliminate redundancy and dependency issues.
         During normalization, entities are decomposed into smaller tables to minimize the potential for update anomalies. This decomposition is guided by the functional dependencies identified in the data.
 
-    Primary and Foreign Keys:
+  \item  Primary and Foreign Keys:
         Functional dependencies guide the determination of primary keys for entities. The primary key is a unique identifier for each record in an entity and is often chosen based on the functional dependencies in the data.
         Foreign keys, which establish relationships between entities, are also influenced by functional dependencies. These keys help maintain referential integrity and ensure that relationships are consistent.
 
-    Relationship Cardinality:
+\item    Relationship Cardinality:
         Functional dependencies contribute to determining the cardinality of relationships between entities in an ERD. Cardinality defines the number of instances of one entity that can be related to another entity.
         By understanding the functional dependencies, you can identify whether the relationship between entities is one-to-one, one-to-many, or many-to-many.
 
-    Attributes and Normal Forms:
+\item    Attributes and Normal Forms:
         Functional dependencies guide the placement of attributes within entities and help ensure that each entity is in an appropriate normal form. Normal forms are stages of normalization, and each form has specific criteria regarding functional dependencies.
 
-    Attribute Constraints:
+\item    Attribute Constraints:
         Functional dependencies are used to define constraints on attributes. For example, if an attribute is functionally dependent on another, it may have constraints such as uniqueness or a specific range of values.
 
-    ERD Refinement:
+\item    ERD Refinement:
         As you progress in the database design process, you may need to refine your ERD based on feedback and additional functional dependencies that become apparent. Refinement involves adjusting the structure of entities and relationships to better represent the real-world scenario.
-
+\end{itemize}
 In summary, functional dependencies are foundational to the design of entity-relationship models. They guide decisions related to the identification of entities, attributes, primary and foreign keys, and the relationships between entities. By incorporating functional dependencies into the modeling process, you create a database design that reflects the inherent structure and dependencies of the data you are working with.
 \end{quotation}
+
+Okay so let's talk about what all this is above.  As usual ChatGPT comes out strong with good accurate and on topic discussion.  Discussion starts to degrade as the algorithm gets further away from the initial prompt.  Normalization and F. Key are great discussions and should be mentioned here.  Next it talks about transaction.  Initially I thought this would be silly but I see it makes a valid point about how when we start to decompose our tables, transact would play a necessary role in maintaining data consistency.  I even see the database constraints section as adding value to the functional dependencies section, I had to do this to make my project work well.  I do not follow the `application logic' section here.  Perhaps they are discussing the DBMS but I am unclear what is meant here and if I was copying from GPT I would just strike this bullet.  I do not see Data Validation as something that is maintaining the functional dependencies.  Sure putting in the correct data type is important but that won't really play a role in which data functionally determines the other.  The conclusion of the first prompt is strong, I always wonder how they pull that off in these models, perhaps the prompts are supposed to go a certain number of words and as we near that it does a wrap up...  
+
+Now using FD and ER models should be interesting too.   I don't find this second prompt to have started nearly as strong as the last one.  We go immediately into the functional dependencies.  Not that it is wrong to discuss identifying them but that is what I asked about.  Kinda feels like an essay question where I don't know how to respond so I just repeat the definitions.  I do agree that to make the ER we will need to know the FDs but we were honestly able to make ERs without knowing about the existence of FDs so it isn't make or break in building an ER.  Normalization is probably the most important output we are given.  It gives a nice response here about normalization.  The key discussion is also great.  I think this is a highlight of this response too.  Relational cardinality was not something I had thought about since the module on ER but yes FD will give us that relationship.  The further discussions about attributes aren't wrong but I don't see this being essential to my ER.  Many times I don't worry about constraints when building the ER.  ERD seems like a bit of a stretch here.  Again we can see the chatGPT decaying in the correlations.  Great conclusion again though.
+
+In all, I find the chatGPT responses to start and end strong with some weakness in the middle.  It uses mostly good information here but does not make the strongest connections between the items as we hoped.  In my own teaching, I can spot these fairly quickly.  For one it is like ten times longer than all their peers and way more technical.  I've enjoyed these opportunities to interact with this software and see how close it can get to the answers when prompted.
 \end{enumerate}
 
 
